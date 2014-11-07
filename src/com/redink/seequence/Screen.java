@@ -2,7 +2,6 @@ package com.redink.seequence;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.hardware.SensorEvent;
@@ -11,12 +10,12 @@ import android.view.MotionEvent;
 public abstract class Screen {
 	
 	protected Context context;
-	protected Activity activity;
+	protected ScreenManager manager;
 	protected List<ScreenElement> elements;
 	
-	public Screen(Activity activity){
-		this.context = activity;
-		this.activity = activity;
+	public Screen(ScreenManager manager){
+		this.context = manager.getActivty();
+		this.manager = manager;
 	}
 
 	public abstract void loadContent();

@@ -1,14 +1,14 @@
 package com.redink.seequence.game;
 
-import android.app.Activity;
 import android.graphics.Canvas;
 
 import com.redink.seequence.Screen;
+import com.redink.seequence.ScreenManager;
 
 public class GameScreen extends Screen{
 
-	public GameScreen(Activity activity) {
-		super(activity);
+	public GameScreen(ScreenManager manager) {
+		super(manager);
 		// TODO Auto-generated constructor stub
 	}
 
