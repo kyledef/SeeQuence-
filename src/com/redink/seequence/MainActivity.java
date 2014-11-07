@@ -20,9 +20,14 @@ public class MainActivity extends Activity implements SensorEventListener {
 		super.onCreate(savedInstanceState);
 
 		phoneScreen = ScreenManager.getInstance(this);
-		setContentView(phoneScreen);
+		try {
+			setContentView(phoneScreen);
 
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+			getWindow()
+					.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		} catch (Exception e) {
+			// Just going to ignore this error for now.
+		}
 
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		mAccelerometer = mSensorManager
