@@ -10,7 +10,7 @@ class GameThread extends Thread {
 	private boolean isRunning;
 	private long startTime;
 	private long timeElapsed;
-	protected boolean pleaseWait;
+	protected boolean pause;
 
 	public GameThread(ScreenManager phoneScreen) {
 		this.phoneScreen = phoneScreen;
@@ -46,7 +46,7 @@ class GameThread extends Thread {
 
 			// check to see if to pause
 			synchronized (this) {
-				while (pleaseWait) {
+				while (pause) {
 					try {
 						wait();
 					} catch (InterruptedException e) {
