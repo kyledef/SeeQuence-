@@ -32,6 +32,14 @@ public class ScreenManager extends SurfaceView implements SurfaceHolder.Callback
 	private Screen activeScreen = null;
 	private List<Screen> screenLst;
 	private Activity activity;
+	
+	public Activity getActivty(){
+		return activity;
+	}
+	
+	public List<Screen> getScreens(){
+		return screenLst;
+	}
 
 	private ScreenManager(Activity activity) {
 		super(activity);
@@ -89,7 +97,7 @@ public class ScreenManager extends SurfaceView implements SurfaceHolder.Callback
 	 */
 	public void pause() {
 		if (gameThread != null) {
-			gameThread.pleaseWait = true;
+			gameThread.pause = true;
 			activeScreen.pause();
 		}
 	}
@@ -100,7 +108,7 @@ public class ScreenManager extends SurfaceView implements SurfaceHolder.Callback
 	public void resume() {
 		if (gameThread != null) {
 			synchronized (gameThread) {
-				gameThread.pleaseWait = false;
+				gameThread.pause = false;
 				gameThread.notify();
 			}
 		}
@@ -146,33 +154,6 @@ public class ScreenManager extends SurfaceView implements SurfaceHolder.Callback
 			activeScreen.processMotionInput(x, y);
 	}
 
-	protected final Handler handler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			AlertDialog.Builder alert = new AlertDialog.Builder(
-					phoneScreen.getContext());
-
-			alert.setTitle("HighSocres");
-			alert.setMessage("Enter your name");
-
-			// Set an EditText view to get user input
-			final EditText input = new EditText(phoneScreen.getContext());
-			alert.setView(input);
-
-			alert.setPositiveButton("Ok",
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog,
-								int whichButton) {
-							Editable value = input.getText();
-							// Do something with value!
-							//HighScoreScreen.getInstance(null).setSumting(value.toString());
-						}
-					});
-
-			alert.show();
-		}
-	};
-
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
 		// TODO Auto-generated method stub
@@ -187,19 +168,11 @@ public class ScreenManager extends SurfaceView implements SurfaceHolder.Callback
 
 			width = this.getWidth() * 0.01f;
 			height = this.getHeight() * 0.01f;
-
 			screenReady = true;
-
-//			screenLst.add(StartScreen.getInstance(activity));
-//			screenLst.add(PlayScreen.getInstance(activity));
-//			screenLst.add(HighScoreScreen.getInstance(activity));
-//
-//			setActiveScreen(ScreenID.STARTSCREEN);
 		}
 	}
 
 	public void surfaceDestroyed(SurfaceHolder holder) {
-		// TODO Auto-generated method stub
-
+		gameThread.shutDown();
 	}
 }
