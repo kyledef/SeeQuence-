@@ -5,6 +5,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.hardware.SensorEvent;
 import android.view.MotionEvent;
 
 public abstract class Screen {
@@ -20,7 +21,9 @@ public abstract class Screen {
 
 	public abstract void loadContent();
 
-	public void draw(Canvas canvas)
+	public abstract void draw(Canvas canvas);
+	
+	public void drawElements(Canvas canvas)
 	{
 		for (ScreenElement element : elements)
 		{
@@ -35,8 +38,20 @@ public abstract class Screen {
 	
 	public abstract void ready();
 
-	public abstract boolean processTouchInput(MotionEvent event);
+	public boolean processTouchInput(MotionEvent event){
+		
+		for (ScreenElement element : elements)
+		{
+			element.onTouchEvent(event);
+		}
+		return true;
+	}
 	
-	public abstract boolean processMotionInput(float x, float y); 
+	public boolean processMotionInput(SensorEvent event){
+		for (ScreenElement element : elements){
+			element.onAccelerometerEvent(event);
+		}
+		return true;
+	}
 
 }

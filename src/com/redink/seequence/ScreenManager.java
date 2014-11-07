@@ -11,17 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.graphics.RectF;
-import android.os.Handler;
-import android.os.Message;
-import android.text.Editable;
+import android.hardware.SensorEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.EditText;
 
 public class ScreenManager extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -96,7 +91,7 @@ public class ScreenManager extends SurfaceView implements SurfaceHolder.Callback
 	 * Pauses the running game thread
 	 */
 	public void pause() {
-		if (gameThread != null) {
+		if (gameThread != null && activeScreen != null) {
 			gameThread.pause = true;
 			activeScreen.pause();
 		}
@@ -149,9 +144,9 @@ public class ScreenManager extends SurfaceView implements SurfaceHolder.Callback
 	 * @param x
 	 * @param y
 	 */
-	public void sendSensorData(float x, float y) {
+	public void sendSensorData(SensorEvent event) {
 		if (this.activeScreen != null)
-			activeScreen.processMotionInput(x, y);
+			activeScreen.processMotionInput(event);
 	}
 
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
