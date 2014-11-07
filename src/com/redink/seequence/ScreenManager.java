@@ -10,6 +10,8 @@ package com.redink.seequence;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.redink.seequence.game.GameScreen;
+
 import android.app.Activity;
 import android.graphics.Canvas;
 import android.graphics.RectF;
@@ -164,6 +166,8 @@ public class ScreenManager extends SurfaceView implements SurfaceHolder.Callback
 			width = this.getWidth() * 0.01f;
 			height = this.getHeight() * 0.01f;
 			screenReady = true;
+			
+			screenLst.add(new GameScreen(this));
 		}
 	}
 
