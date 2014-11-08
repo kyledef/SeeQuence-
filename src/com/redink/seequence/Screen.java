@@ -32,16 +32,16 @@ public abstract class Screen {
 
 	public boolean processTouchInput(MotionEvent event) {
 
-		for (Sprite element : elements) {
-			element.onTouchEvent(event);
-		}
+//		for (Sprite element : elements) {
+//			element.onTouchEvent(event);
+//		}
 		return true;
 	}
 
 	public boolean processMotionInput(SensorEvent event) {
-		for (Sprite element : elements) {
-			element.onAccelerometerEvent(event);
-		}
+//		for (Sprite element : elements) {
+//			element.onAccelerometerEvent(event);
+//		}
 		return true;
 	}
 

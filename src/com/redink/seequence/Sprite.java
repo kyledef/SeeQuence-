@@ -29,12 +29,11 @@ public abstract class Sprite {
 
 	public void draw(Canvas canvas) {
 		canvas.drawBitmap(image, src, this.getDst(), null);
-		System.out.println("drawing the screen");
 	}
 
 	public RectF getDst() {
-		return new RectF(x, y , x + (width * p.width), y
-				+ (height * p.height));
+		return new RectF(x, y , x + (width), y
+				+ (height));
 	}
 	public abstract void update();
 

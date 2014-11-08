@@ -9,17 +9,18 @@ import com.redink.seequence.ScreenManager;
 
 public class NumberElement extends Sprite {
 	
+	private int value;
 
 	public NumberElement(Bitmap img, float x, float y, float width,
-			float height, ScreenManager p) {
+			float height, ScreenManager p, int value) {
 		super(img, x, y, width, height, p);
-		// TODO Auto-generated constructor stub
+		this.value = value;
 	}
 
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
