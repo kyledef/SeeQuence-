@@ -7,10 +7,7 @@
  */
 package com.redink.seequence;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.redink.seequence.game.GameScreen;
+import java.util.HashMap;
 
 import android.app.Activity;
 import android.graphics.Canvas;
@@ -20,28 +17,31 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-public class ScreenManager extends SurfaceView implements SurfaceHolder.Callback {
+import com.redink.seequence.game.GameScreen;
+
+public class ScreenManager extends SurfaceView implements
+		SurfaceHolder.Callback {
 
 	private static ScreenManager phoneScreen = null;
 	protected float width, height;
 	protected boolean screenReady;
 	protected GameThread gameThread = null;
 	private Screen activeScreen = null;
-	private List<Screen> screenLst;
+	private HashMap<String, Screen> screenMap;
 	private Activity activity;
-	
-	public Activity getActivty(){
+
+	public Activity getActivty() {
 		return activity;
 	}
-	
-	public List<Screen> getScreens(){
-		return screenLst;
+
+	public HashMap<String, Screen> getScreens() {
+		return screenMap;
 	}
 
 	private ScreenManager(Activity activity) {
 		super(activity);
 		getHolder().addCallback(this);
-		screenLst = new ArrayList<Screen>();
+		screenMap = new HashMap<String, Screen>();
 		this.activity = activity;
 	}
 
@@ -52,20 +52,18 @@ public class ScreenManager extends SurfaceView implements SurfaceHolder.Callback
 	}
 
 	public void draw(Canvas canvas) {
-		// TODO Auto-generated method stub
 		if (activeScreen != null)
 			activeScreen.draw(canvas);
 	}
 
 	public void update() {
-		// TODO Auto-generated method stub
 		if (activeScreen != null)
 			activeScreen.update();
 	}
 
-
 	/**
 	 * Returns a RectF representation of the drawable phone screen region.
+	 * 
 	 * @return
 	 */
 	public RectF getWindow() {
@@ -74,6 +72,7 @@ public class ScreenManager extends SurfaceView implements SurfaceHolder.Callback
 
 	/**
 	 * Returns the current active screen to the calling object
+	 * 
 	 * @return
 	 */
 	public Screen getActiveScreen() {
@@ -82,10 +81,11 @@ public class ScreenManager extends SurfaceView implements SurfaceHolder.Callback
 
 	/**
 	 * Sets the Active Screen to be displayed by specifying the screen ScreenID
+	 * 
 	 * @param screenID
 	 */
-	public void setActiveScreen(int screenID) {
-		this.activeScreen = screenLst.get(screenID);
+	public void setActiveScreen(String screenKey) {
+		this.activeScreen = screenMap.get(screenKey);
 		activeScreen.ready();
 	}
 
@@ -140,9 +140,10 @@ public class ScreenManager extends SurfaceView implements SurfaceHolder.Callback
 			this.activeScreen.processTouchInput(event);
 		return super.onTouchEvent(event);
 	}
-	
+
 	/**
 	 * Activates the active screen's accelerometer handling method
+	 * 
 	 * @param x
 	 * @param y
 	 */
@@ -166,9 +167,14 @@ public class ScreenManager extends SurfaceView implements SurfaceHolder.Callback
 			width = this.getWidth() * 0.01f;
 			height = this.getHeight() * 0.01f;
 			screenReady = true;
-			
-			screenLst.add(new GameScreen(this));
+
+			this.addScreen(new GameScreen(this));
+			this.setActiveScreen("GAMESCREEN");
 		}
+	}
+
+	private void addScreen(Screen screen) {
+		this.screenMap.put(screen.getName(), screen);
 	}
 
 	public void surfaceDestroyed(SurfaceHolder holder) {

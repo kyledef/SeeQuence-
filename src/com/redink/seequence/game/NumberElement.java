@@ -4,10 +4,10 @@ import android.graphics.Bitmap;
 import android.hardware.SensorEvent;
 import android.view.MotionEvent;
 
-import com.redink.seequence.ScreenElement;
+import com.redink.seequence.Sprite;
 import com.redink.seequence.ScreenManager;
 
-public class NumberElement extends ScreenElement {
+public class NumberElement extends Sprite {
 	
 
 	public NumberElement(Bitmap img, float x, float y, float width,
