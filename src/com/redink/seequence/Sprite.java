@@ -27,9 +27,7 @@ public abstract class Sprite {
 		this.src = null;
 	}
 
-	public void draw(Canvas canvas) {
-		canvas.drawBitmap(image, src, this.getDst(), null);
-	}
+	public abstract void draw(Canvas canvas);
 
 	public RectF getDst() {
 		return new RectF(x, y , x + (width), y

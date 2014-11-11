@@ -6,6 +6,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.WindowManager;
 
 public class MainActivity extends Activity implements SensorEventListener {
@@ -58,6 +59,13 @@ public class MainActivity extends Activity implements SensorEventListener {
 				&& phoneScreen != null) {
 			phoneScreen.sendSensorData(sensorEvent);
 		}
+	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_CANCEL && phoneScreen != null)
+			return phoneScreen.sendTouchData(event);
+		return false;
 	}
 
 }

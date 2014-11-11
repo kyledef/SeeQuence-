@@ -180,4 +180,10 @@ public class ScreenManager extends SurfaceView implements
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		gameThread.shutDown();
 	}
+
+	public boolean sendTouchData(MotionEvent event) {
+		if (this.activeScreen != null)
+			return activeScreen.processTouchInput(event);
+		return false;
+	}
 }

@@ -30,20 +30,9 @@ public abstract class Screen {
 
 	public abstract void ready();
 
-	public boolean processTouchInput(MotionEvent event) {
+	public abstract boolean processTouchInput(MotionEvent event);
 
-//		for (Sprite element : elements) {
-//			element.onTouchEvent(event);
-//		}
-		return true;
-	}
-
-	public boolean processMotionInput(SensorEvent event) {
-//		for (Sprite element : elements) {
-//			element.onAccelerometerEvent(event);
-//		}
-		return true;
-	}
+	public abstract boolean processMotionInput(SensorEvent event);
 
 	public String getName() {
 		return this.screenName;

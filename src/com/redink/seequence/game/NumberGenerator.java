@@ -30,7 +30,7 @@ public class NumberGenerator {
 
 	private int generateNumber() {
 		Random rand = new Random();
-		int min = 0, max = 10;
+		int min = 1, max = 9;
 		return rand.nextInt((max - min) + 1) + min;
 	}
 
