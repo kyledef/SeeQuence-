@@ -1,5 +1,7 @@
 package com.redink.seequence.game;
 
+import java.util.Random;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -19,9 +21,15 @@ public class NumberElement extends Sprite {
 	private int value;
 
 	public NumberElement(Bitmap img, float x, float y, float width,
-			float height, ScreenManager p, int value) {
+			float height, ScreenManager p) {
 		super(img, x, y, width, height, p);
-		this.value = value;
+		this.value = generateNumber();
+	}
+	
+	private int generateNumber() {
+		Random rand = new Random();
+		int min = 1, max = 9;
+		return rand.nextInt((max - min) + 1) + min;
 	}
 
 	@Override
@@ -56,8 +64,17 @@ public class NumberElement extends Sprite {
 
 	@Override
 	public boolean onAccelerometerEvent(SensorEvent event) {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public int getValue() {
+		return this.value;
+	}
+
+	public void reset() {
+		this.image = BitmapFactory.decodeResource(this.p.getContext().getResources(),
+				R.drawable.unselected);
+		this.value = this.generateNumber();
 	}
 
 }

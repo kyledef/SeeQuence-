@@ -28,11 +28,7 @@ public class NumberGenerator {
 		this.elementList = new ArrayList<NumberElement>();
 	}
 
-	private int generateNumber() {
-		Random rand = new Random();
-		int min = 1, max = 9;
-		return rand.nextInt((max - min) + 1) + min;
-	}
+
 
 	public boolean readyElements(int amount, RectF drawableArea) {
 		try {
@@ -44,9 +40,8 @@ public class NumberGenerator {
 
 			for (int i = 0; i < amount; ++i) {
 				for (int j = 0; j < amount; ++j) {
-					int number = this.generateNumber();
 					this.elementList.add(new NumberElement(img, (width * i) + 35, (height * j) + 211,
-							width, height, manager, number));
+							width, height, manager));
 				}
 			}
 		} catch (Exception e) {
