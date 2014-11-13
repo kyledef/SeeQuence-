@@ -1,4 +1,4 @@
-package com.redink.seequence.game;
+package com.redink.seequence;
 
 import java.util.Random;
 
@@ -13,8 +13,6 @@ import android.hardware.SensorEvent;
 import android.view.MotionEvent;
 
 import com.redink.seequence.R;
-import com.redink.seequence.ScreenManager;
-import com.redink.seequence.Sprite;
 
 public class NumberElement extends Sprite {
 

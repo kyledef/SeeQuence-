@@ -1,4 +1,4 @@
-package com.redink.seequence.game;
+package com.redink.seequence;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,9 +8,6 @@ import android.graphics.Typeface;
 import android.graphics.Paint.Align;
 import android.hardware.SensorEvent;
 import android.view.MotionEvent;
-
-import com.redink.seequence.Screen;
-import com.redink.seequence.ScreenManager;
 
 public class GameSelectScreen extends Screen {
 	private static GameSelectScreen instance = null;
@@ -34,27 +31,50 @@ public class GameSelectScreen extends Screen {
 
 	private RectF banner, fourbtn, fivebtn, sixbtn, sevenbtn, eightbtn;
 
+	private RectF getRect(float x, float y, float width, float height) {
+		float left = manager.width * (x / 100);
+		float top = manager.height * (y / 100);
+		float right = left + (manager.width * (width / 100));
+		float bottom = top + (manager.height * (height / 100));
+
+		System.out.println("Drawing rect (" + left + "," + top + "," + right
+				+ "," + bottom);
+		return new RectF(left, top, right, bottom);
+	}
+
+	private float scaleMeasurement(float size) {
+		return manager.height * (size / 100);
+	}
+
 	@Override
 	public void ready() {
-		RectF window = this.manager.getWindow();
+		banner = this.getRect(5, 5, 90, 20);
 
-		banner = new RectF(window.left + 25, window.top + 50,
-				window.right - 25, window.top + 250);
+		// new RectF(window.left + (0.05f * manager.width), window.top + (0.1f *
+		// manager.height),
+		// window.right - (0.05f * manager.width), window.top + (0.75f *
+		// manager.height));
 
-		fourbtn = new RectF(window.left + 100, banner.bottom + 150,
-				window.right - 100, banner.bottom + 300);
+		fourbtn = this.getRect(10, 30, 80, 10);
 
-		fivebtn = new RectF(window.left + 100, fourbtn.bottom + 50,
-				window.right - 100, fourbtn.bottom + 200);
+		// = new RectF(window.left + 100, banner.bottom + 150,
+		// window.right - 100, banner.bottom + 300);
 
-		sixbtn = new RectF(window.left + 100, fivebtn.bottom + 50,
-				window.right - 100, fivebtn.bottom + 200);
+		fivebtn = this.getRect(10, 45, 80, 10);
+		// = new RectF(window.left + 100, fourbtn.bottom + 50,
+		// window.right - 100, fourbtn.bottom + 200);
 
-		sevenbtn = new RectF(window.left + 100, sixbtn.bottom + 50,
-				window.right - 100, sixbtn.bottom + 200);
+		sixbtn = this.getRect(10, 60, 80, 10);
+		// new RectF(window.left + 100, fivebtn.bottom + 50,
+		// window.right - 100, fivebtn.bottom + 200);
 
-		eightbtn = new RectF(window.left + 100, sevenbtn.bottom + 50,
-				window.right - 100, sevenbtn.bottom + 200);
+		sevenbtn = this.getRect(10, 75, 80, 10);
+		// = new RectF(window.left + 100, sixbtn.bottom + 50,
+		// window.right - 100, sixbtn.bottom + 200);
+
+		eightbtn = this.getRect(10, 90, 80, 10);
+		// new RectF(window.left + 100, sevenbtn.bottom + 50,
+		// window.right - 100, sevenbtn.bottom + 200);
 
 	}
 
@@ -65,56 +85,55 @@ public class GameSelectScreen extends Screen {
 		canvas.drawRect(this.manager.getWindow(), paint);
 
 		paint.setColor(Color.WHITE);
-		paint.setTextSize(150);
+		// canvas.drawRect(banner, paint);
+
+		paint.setTextSize(this.scaleMeasurement(10));
 		paint.setTypeface(Typeface.SERIF);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
 		paint.setTextAlign(Align.CENTER);
-		canvas.drawText("SeeQuence", banner.centerX(), banner.centerY() + 75,
-				paint);
+		canvas.drawText("SeeQuence", banner.centerX(), banner.centerY()
+				+ (manager.height * 0.03f), paint);
 
 		paint.setColor(Color.BLACK);
-		canvas.drawRoundRect(fourbtn, 50, 50, paint);
+		canvas.drawRoundRect(fourbtn, this.scaleMeasurement(5), this.scaleMeasurement(5), paint);
 		paint.setColor(Color.WHITE);
-		paint.setTextSize(50);
+		paint.setTextSize(this.scaleMeasurement(4));
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
 		paint.setTextAlign(Align.CENTER);
 		canvas.drawText("4 x 4 Grid", fourbtn.centerX(), fourbtn.centerY(),
 				paint);
 
 		paint.setColor(Color.BLACK);
-		canvas.drawRoundRect(fivebtn, 50, 50, paint);
+		canvas.drawRoundRect(fivebtn, this.scaleMeasurement(5), this.scaleMeasurement(5), paint);
 		paint.setColor(Color.WHITE);
-		paint.setTextSize(50);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
 		paint.setTextAlign(Align.CENTER);
 		canvas.drawText("5 x 5 Grid", fivebtn.centerX(), fivebtn.centerY(),
 				paint);
 
 		paint.setColor(Color.BLACK);
-		canvas.drawRoundRect(sixbtn, 50, 50, paint);
+		canvas.drawRoundRect(sixbtn, this.scaleMeasurement(5), this.scaleMeasurement(5), paint);
 		paint.setColor(Color.WHITE);
-		paint.setTextSize(50);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
 		paint.setTextAlign(Align.CENTER);
 		canvas.drawText("6 x 6 Grid", sixbtn.centerX(), sixbtn.centerY(), paint);
 
 		paint.setColor(Color.BLACK);
-		canvas.drawRoundRect(sevenbtn, 50, 50, paint);
+		canvas.drawRoundRect(sevenbtn, this.scaleMeasurement(5), this.scaleMeasurement(5), paint);
 		paint.setColor(Color.WHITE);
-		paint.setTextSize(50);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
 		paint.setTextAlign(Align.CENTER);
 		canvas.drawText("7 x 7 Grid", sevenbtn.centerX(), sevenbtn.centerY(),
 				paint);
 
-//		paint.setColor(Color.BLACK);
-//		canvas.drawRoundRect(eightbtn, 50, 50, paint);
-//		paint.setColor(Color.WHITE);
-//		paint.setTextSize(50);
-//		paint.setTypeface(Typeface.DEFAULT_BOLD);
-//		paint.setTextAlign(Align.CENTER);
-//		canvas.drawText("8 x 8 Grid", eightbtn.centerX(), eightbtn.centerY(),
-//				paint);
+		// paint.setColor(Color.BLACK);
+		// canvas.drawRoundRect(eightbtn, 50, 50, paint);
+		// paint.setColor(Color.WHITE);
+		// paint.setTextSize(50);
+		// paint.setTypeface(Typeface.DEFAULT_BOLD);
+		// paint.setTextAlign(Align.CENTER);
+		// canvas.drawText("8 x 8 Grid", eightbtn.centerX(), eightbtn.centerY(),
+		// paint);
 	}
 
 	private boolean buttonPressed(RectF button, MotionEvent event) {

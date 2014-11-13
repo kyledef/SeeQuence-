@@ -1,4 +1,4 @@
-package com.redink.seequence.game;
+package com.redink.seequence;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -9,8 +9,6 @@ import android.graphics.Paint.Align;
 import android.hardware.SensorEvent;
 import android.view.MotionEvent;
 
-import com.redink.seequence.Screen;
-import com.redink.seequence.ScreenManager;
 
 public class GameOverScreen extends Screen{
 	

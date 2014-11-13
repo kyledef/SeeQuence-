@@ -1,4 +1,4 @@
-package com.redink.seequence.game;
+package com.redink.seequence;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +16,6 @@ import android.os.CountDownTimer;
 import android.view.MotionEvent;
 
 import com.redink.seequence.R;
-import com.redink.seequence.Screen;
-import com.redink.seequence.ScreenManager;
 
 public class GameScreen extends Screen {
 

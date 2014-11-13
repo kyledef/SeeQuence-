@@ -17,9 +17,6 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.redink.seequence.game.GameOverScreen;
-import com.redink.seequence.game.GameScreen;
-import com.redink.seequence.game.GameSelectScreen;
 
 public class ScreenManager extends SurfaceView implements
 		SurfaceHolder.Callback {
@@ -166,8 +163,8 @@ public class ScreenManager extends SurfaceView implements
 
 			gameThread.start();
 
-			width = this.getWidth() * 0.01f;
-			height = this.getHeight() * 0.01f;
+			width = this.getWidth();// * 0.01f;
+			height = this.getHeight();// * 0.01f;
 			screenReady = true;
 
 			this.addScreen(GameScreen.getInstance(this));
