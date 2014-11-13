@@ -3,50 +3,63 @@ package com.redink.seequence.game;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Paint.Align;
 import android.graphics.RectF;
 import android.graphics.Typeface;
-import android.graphics.Paint.Align;
 import android.hardware.SensorEvent;
+import android.os.CountDownTimer;
 import android.view.MotionEvent;
 
+import com.redink.seequence.R;
 import com.redink.seequence.Screen;
 import com.redink.seequence.ScreenManager;
 
 public class GameScreen extends Screen {
 
-	private NumberGenerator generator;
+	// private NumberGenerator generator;
 	private List<NumberElement> sequence = new ArrayList<NumberElement>();
 	private int score = 0;
+	private long timer;
 
-	public GameScreen(ScreenManager manager) {
+	private RectF border1, border2, button, scoreRect, timerRect;
+	private int amount = 4;
+	private List<NumberElement> elementList = new ArrayList<NumberElement>();
+	
+	private static GameScreen instance = null;
+	
+	private GameScreen(ScreenManager manager) {
 		super(manager, "GAMESCREEN");
-		// TODO Auto-generated constructor stub
-
-		this.generator = new NumberGenerator(manager);
+		// this.generator = new NumberGenerator(manager);
+	}
+	
+	public static GameScreen getInstance(ScreenManager manager){
+		if (instance == null) instance = new GameScreen(manager);
+		return instance;
+	}
+	
+	public void setAmount(int amt) {
+		this.amount = amt;
 	}
 
 	@Override
 	public void loadContent() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-
+		
 	}
-
-	private RectF border1, border2, button, scoreRect;
 
 	@Override
 	public void ready() {
@@ -59,11 +72,38 @@ public class GameScreen extends Screen {
 
 		this.button = new RectF(window.left + 25, window.bottom - 250,
 				window.right - 25, window.bottom - 25);
-		
+
 		this.scoreRect = new RectF(window.left + 25, window.top + 25,
 				window.right - 25, window.top + 175);
 
-		this.generator.readyElements(4, border2);
+		this.timerRect = new RectF(window.left + 25, window.top + 25,
+				window.right - 25, window.top + 175);
+		
+		try {
+			Bitmap img = BitmapFactory.decodeResource(context.getResources(),
+					R.drawable.unselected);
+
+			float width = border2.width() / amount;
+			float height = border2.height() / amount;
+
+			for (int i = 0; i < amount; ++i) {
+				for (int j = 0; j < amount; ++j) {
+					this.elementList.add(new NumberElement(img, (width * i) + 35, (height * j) + 211,
+							width, height, manager));
+				}
+			}
+		} catch (Exception e) {	}
+		
+		 new CountDownTimer(60000, 1000) {
+
+		     public void onTick(long millisUntilFinished) {
+		    	 timer = millisUntilFinished / 1000;
+		     }
+
+		     public void onFinish() {
+		    	 timer = 0;
+		     }
+		  }.start();
 	}
 
 	private void drawBorder(Canvas canvas) {
@@ -75,12 +115,16 @@ public class GameScreen extends Screen {
 
 		paint.setColor(Color.GREEN);
 		canvas.drawRoundRect(button, 15, 15, paint);
-		
+
 		paint.setColor(Color.BLACK);
 		paint.setTextSize(60);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
-		paint.setTextAlign(Align.CENTER);
-		canvas.drawText("Score: " + this.score, scoreRect.centerX(), scoreRect.centerY() + 15, paint);
+		paint.setTextAlign(Align.LEFT);
+		canvas.drawText("Score: " + this.score, 25,
+				scoreRect.centerY() + 15, paint);
+		paint.setTextAlign(Align.RIGHT);
+		canvas.drawText("Timer: " + this.timer, timerRect.right - 25,
+				timerRect.centerY() + 15, paint);
 	}
 
 	@Override
@@ -88,20 +132,19 @@ public class GameScreen extends Screen {
 		canvas.drawColor(Color.WHITE);
 		drawBorder(canvas);
 
-		List<NumberElement> list = this.generator.getList();
-		for (NumberElement e : list) {
+		for (NumberElement e : elementList) {
 			e.draw(canvas);
 		}
 	}
 
 	private boolean checkSequence() {
-		if (sequence.size() > 2){
+		if (sequence.size() > 2) {
 			NumberElement e1 = this.sequence.get(0);
 			NumberElement e2 = this.sequence.get(1);
-			
+
 			int diff = e1.getValue() - e2.getValue();
-			
-			for (int i = 0; i < sequence.size() - 1; i++){
+
+			for (int i = 0; i < sequence.size() - 1; i++) {
 				e1 = this.sequence.get(i);
 				e2 = this.sequence.get(i + 1);
 				if (diff != e1.getValue() - e2.getValue())
@@ -115,10 +158,8 @@ public class GameScreen extends Screen {
 
 	@Override
 	public boolean processTouchInput(MotionEvent event) {
-		List<NumberElement> list = this.generator.getList();
-
 		// if the element was touched exit the loop.
-		for (NumberElement e : list) {
+		for (NumberElement e : elementList) {
 			if (e.onTouchEvent(event)) {
 				sequence.add(e);
 				return true;
@@ -127,10 +168,12 @@ public class GameScreen extends Screen {
 
 		if (this.button.contains(event.getX(), event.getY())) {
 			System.out.println("Enter pressed");
-			if (checkSequence()) System.out.println("This is a sequence! " + score);
-			else System.out.println("This is not a sequence.");
+			if (checkSequence())
+				System.out.println("This is a sequence! " + score);
+			else
+				System.out.println("This is not a sequence.");
 			// always empty the sequence
-			for (NumberElement e : sequence) 
+			for (NumberElement e : sequence)
 				e.reset();
 			this.sequence.clear();
 		}

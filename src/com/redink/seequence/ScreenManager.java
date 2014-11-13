@@ -18,6 +18,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.redink.seequence.game.GameScreen;
+import com.redink.seequence.game.GameSelectScreen;
 
 public class ScreenManager extends SurfaceView implements
 		SurfaceHolder.Callback {
@@ -168,8 +169,9 @@ public class ScreenManager extends SurfaceView implements
 			height = this.getHeight() * 0.01f;
 			screenReady = true;
 
-			this.addScreen(new GameScreen(this));
-			this.setActiveScreen("GAMESCREEN");
+			this.addScreen(GameScreen.getInstance(this));
+			this.addScreen(GameSelectScreen.getInstance(this));
+			this.setActiveScreen("GAMESELECT");
 		}
 	}
 
