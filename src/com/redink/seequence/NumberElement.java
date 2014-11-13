@@ -24,6 +24,10 @@ public class NumberElement extends Sprite {
 		this.value = generateNumber();
 	}
 	
+	private float scaleMeasurement(float size) {
+		return p.height * (size / 100);
+	}
+
 	private int generateNumber() {
 		Random rand = new Random();
 		int min = 1, max = 9;
@@ -35,11 +39,11 @@ public class NumberElement extends Sprite {
 		canvas.drawBitmap(image, src, this.getDst(), null);
 		Paint paint = new Paint();
 		paint.setColor(Color.BLACK);
-		paint.setTextSize(60);
+		paint.setTextSize(scaleMeasurement(5));
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
 		paint.setTextAlign(Align.CENTER);
 		canvas.drawText("" + this.value, this.getDst().centerX(), this.getDst()
-				.centerY() + 15, paint);
+				.centerY() + this.scaleMeasurement(1), paint);
 		
 		
 		//canvas.drawRect(getDst(), paint);

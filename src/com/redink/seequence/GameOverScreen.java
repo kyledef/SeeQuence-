@@ -23,7 +23,11 @@ public class GameOverScreen extends Screen{
 		if (instance == null) instance = new GameOverScreen(manager);
 		return instance;
 	}
-
+	
+	private float scaleMeasurement(float size) {
+		return manager.width * (size / 100);
+	}
+	
 	@Override
 	public void loadContent() {
 		// TODO Auto-generated method stub
@@ -43,14 +47,14 @@ public class GameOverScreen extends Screen{
 		canvas.drawRect(this.manager.getWindow(), paint);
 		
 		paint.setColor(Color.BLACK);
-		paint.setTextSize(100);
+		paint.setTextSize(scaleMeasurement(10));
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
 		paint.setTextAlign(Align.CENTER);
 		canvas.drawText("Game Over", window.centerX(), window.centerY() - 175,
 				paint);
 		canvas.drawText("You Scored " + this.score, window.centerX(), window.centerY() - 50,
 				paint);
-		paint.setTextSize(50);
+		paint.setTextSize(scaleMeasurement(5));
 		canvas.drawText("Tap anywhere to continue", window.centerX(), window.centerY() + 100,
 				paint);
 	}

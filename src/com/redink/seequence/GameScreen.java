@@ -27,59 +27,96 @@ public class GameScreen extends Screen {
 	private RectF border1, border2, button, scoreRect, timerRect;
 	private int amount = 4;
 	private List<NumberElement> elementList = new ArrayList<NumberElement>();
-	
+
 	private static GameScreen instance = null;
-	
+
 	private GameScreen(ScreenManager manager) {
 		super(manager, "GAMESCREEN");
 		// this.generator = new NumberGenerator(manager);
 	}
-	
-	public static GameScreen getInstance(ScreenManager manager){
-		if (instance == null) instance = new GameScreen(manager);
+
+	public static GameScreen getInstance(ScreenManager manager) {
+		if (instance == null)
+			instance = new GameScreen(manager);
 		return instance;
 	}
-	
+
 	public void setAmount(int amt) {
 		this.amount = amt;
 	}
 
 	@Override
 	public void loadContent() {
-		
+
 	}
 
 	@Override
 	public void update() {
-		
+
 	}
 
 	@Override
 	public void pause() {
-		
+
+	}
+
+	private RectF getRect(float x, float y, float width, float height) {
+		float left = manager.width * (x / 100);
+		float top = manager.height * (y / 100);
+		float right = left + (manager.width * (width / 100));
+		float bottom = top + (manager.height * (height / 100));
+
+		System.out.println("Drawing rect (" + left + "," + top + "," + right
+				+ "," + bottom);
+		return new RectF(left, top, right, bottom);
+	}
+
+	private RectF getSquare(float x, float y, float width) {
+		float left = manager.width * (x / 100);
+		float top = manager.height * (y / 100);
+		float right = left + (manager.width * (width / 100));
+		float bottom = top + (manager.width * (width / 100));
+
+		System.out.println("Drawing rect (" + left + "," + top + "," + right
+				+ "," + bottom);
+		return new RectF(left, top, right, bottom);
+	}
+
+	private float scaleMeasurement(float size) {
+		return manager.height * (size / 100);
+	}
+	
+	private float scaleMeasurementW(float size) {
+		return manager.width * (size / 100);
 	}
 
 	@Override
 	public void ready() {
-   	 	this.elementList.clear();
-   	 	this.score = 0;
-   	 
-		RectF window = this.manager.getWindow();
+		this.elementList.clear();
+		this.score = 0;
 
-		this.border1 = new RectF(window.left + 25, window.top + 200,
-				window.right - 25, window.width() + 200);
-		this.border2 = new RectF(window.left + 35, window.top + 210,
-				window.right - 35, window.width() + 190);
+		// RectF window = this.manager.getWindow();
 
-		this.button = new RectF(window.left + 25, window.bottom - 250,
-				window.right - 25, window.bottom - 25);
+		// this.border1 = this.getSquare(5, 150, 50 );
+		// = new RectF(window.left + 25, window.top + 200,
+		// window.right - 25, window.width() + 200);
+		this.border2 = this.getSquare(5, 15, 90);
+		// new RectF(window.left + 35, window.top + 210,
+		// window.right - 35, window.width() + 190);
 
-		this.scoreRect = new RectF(window.left + 25, window.top + 25,
-				window.right - 25, window.top + 175);
+		this.button = this.getRect(5, 82, 90, 13);
+		// new RectF(window.left + 25, window.bottom - 250,
+		// window.right - 25, window.bottom - 25);
 
-		this.timerRect = new RectF(window.left + 25, window.top + 25,
-				window.right - 25, window.top + 175);
-		
+		this.scoreRect = this.getRect(5, 5, 45, 10);
+
+		// new RectF(window.left + 25, window.top + 25,
+		// window.right - 25, window.top + 175);
+
+		this.timerRect = this.getRect(45, 5, 50, 10);
+		// = new RectF(window.left + 25, window.top + 25,
+		// window.right - 25, window.top + 175);
+
 		try {
 			Bitmap img = BitmapFactory.decodeResource(context.getResources(),
 					R.drawable.unselected);
@@ -89,29 +126,34 @@ public class GameScreen extends Screen {
 
 			for (int i = 0; i < amount; ++i) {
 				for (int j = 0; j < amount; ++j) {
-					this.elementList.add(new NumberElement(img, (width * i) + 35, (height * j) + 211,
-							width, height, manager));
+					this.elementList
+							.add(new NumberElement(img, (width * i)
+									+ this.scaleMeasurementW(5), (height * j)
+									+ this.scaleMeasurement(15), width, height,
+									manager));
 				}
 			}
-		} catch (Exception e) {	}
-		
-		 new CountDownTimer(10000, 1000) {
+		} catch (Exception e) {
+		}
 
-		     public void onTick(long millisUntilFinished) {
-		    	 timer = millisUntilFinished / 1000;
-		     }
+		new CountDownTimer(60000, 1000) {
 
-		     public void onFinish() {
-		    	 timer = 0;
-		    	 manager.setActiveScreen("GAMEOVER");
-		     }
-		  }.start();
+			public void onTick(long millisUntilFinished) {
+				timer = millisUntilFinished / 1000;
+			}
+
+			public void onFinish() {
+				timer = 0;
+				GameOverScreen.getInstance(manager).setScore(score);
+				manager.setActiveScreen("GAMEOVER");
+			}
+		}.start();
 	}
 
 	private void drawBorder(Canvas canvas) {
 		Paint paint = new Paint();
 		paint.setARGB(255, 242, 158, 102);
-		canvas.drawRect(border1, paint);
+		canvas.drawRect(this.manager.getWindow(), paint);
 		paint.setColor(Color.WHITE);
 		canvas.drawRect(border2, paint);
 
@@ -119,14 +161,15 @@ public class GameScreen extends Screen {
 		canvas.drawRoundRect(button, 15, 15, paint);
 
 		paint.setColor(Color.BLACK);
-		paint.setTextSize(60);
+		paint.setTextSize(this.scaleMeasurement(5));
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
 		paint.setTextAlign(Align.LEFT);
-		canvas.drawText("Score: " + this.score, 25,
-				scoreRect.centerY() + 15, paint);
+		canvas.drawText("Score: " + this.score, this.scaleMeasurement(5),
+				scoreRect.centerY(), paint);
 		paint.setTextAlign(Align.RIGHT);
-		canvas.drawText("Timer: " + this.timer, timerRect.right - 25,
-				timerRect.centerY() + 15, paint);
+		canvas.drawText("Timer: " + this.timer, this.scaleMeasurement(60),
+				timerRect.centerY(), paint);
+
 	}
 
 	@Override
