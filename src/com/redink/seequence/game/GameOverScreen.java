@@ -38,18 +38,23 @@ public class GameOverScreen extends Screen{
 
 	@Override
 	public void draw(Canvas canvas) {
+		RectF window = this.manager.getWindow();
+		
 		Paint paint = new Paint();
 		paint.setARGB(255, 242, 158, 102);
 		canvas.drawRect(this.manager.getWindow(), paint);
 		
 		paint.setColor(Color.BLACK);
-		paint.setTextSize(150);
-		paint.setTypeface(Typeface.SERIF);
+		paint.setTextSize(100);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
 		paint.setTextAlign(Align.CENTER);
-		canvas.drawText("Game Over!\nYou Scored " + this.score + "\nTap anywhere to continue", banner.centerX(), banner.centerY() + 75,
+		canvas.drawText("Game Over", window.centerX(), window.centerY() - 175,
 				paint);
-		
+		canvas.drawText("You Scored " + this.score, window.centerX(), window.centerY() - 50,
+				paint);
+		paint.setTextSize(50);
+		canvas.drawText("Tap anywhere to continue", window.centerX(), window.centerY() + 100,
+				paint);
 	}
 
 	@Override
@@ -63,16 +68,10 @@ public class GameOverScreen extends Screen{
 		// TODO Auto-generated method stub
 		
 	}
-	
-	private RectF banner;
 
 	@Override
 	public void ready() {
-		RectF window = this.manager.getWindow();
-		
-		banner = new RectF(window.left + 25, window.top + 50,
-				window.right - 25, window.top + 250);
-		
+
 	}
 
 	@Override
