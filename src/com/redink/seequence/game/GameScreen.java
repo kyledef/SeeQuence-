@@ -63,6 +63,9 @@ public class GameScreen extends Screen {
 
 	@Override
 	public void ready() {
+   	 	this.elementList.clear();
+   	 	this.score = 0;
+   	 
 		RectF window = this.manager.getWindow();
 
 		this.border1 = new RectF(window.left + 25, window.top + 200,
@@ -94,7 +97,7 @@ public class GameScreen extends Screen {
 			}
 		} catch (Exception e) {	}
 		
-		 new CountDownTimer(60000, 1000) {
+		 new CountDownTimer(10000, 1000) {
 
 		     public void onTick(long millisUntilFinished) {
 		    	 timer = millisUntilFinished / 1000;
@@ -102,6 +105,7 @@ public class GameScreen extends Screen {
 
 		     public void onFinish() {
 		    	 timer = 0;
+		    	 manager.setActiveScreen("GAMEOVER");
 		     }
 		  }.start();
 	}

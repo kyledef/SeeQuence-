@@ -17,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.redink.seequence.game.GameOverScreen;
 import com.redink.seequence.game.GameScreen;
 import com.redink.seequence.game.GameSelectScreen;
 
@@ -171,6 +172,7 @@ public class ScreenManager extends SurfaceView implements
 
 			this.addScreen(GameScreen.getInstance(this));
 			this.addScreen(GameSelectScreen.getInstance(this));
+			this.addScreen(GameOverScreen.getInstance(this));
 			this.setActiveScreen("GAMESELECT");
 		}
 	}

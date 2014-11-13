@@ -107,14 +107,14 @@ public class GameSelectScreen extends Screen {
 		canvas.drawText("7 x 7 Grid", sevenbtn.centerX(), sevenbtn.centerY(),
 				paint);
 
-		paint.setColor(Color.BLACK);
-		canvas.drawRoundRect(eightbtn, 50, 50, paint);
-		paint.setColor(Color.WHITE);
-		paint.setTextSize(50);
-		paint.setTypeface(Typeface.DEFAULT_BOLD);
-		paint.setTextAlign(Align.CENTER);
-		canvas.drawText("8 x 8 Grid", eightbtn.centerX(), eightbtn.centerY(),
-				paint);
+//		paint.setColor(Color.BLACK);
+//		canvas.drawRoundRect(eightbtn, 50, 50, paint);
+//		paint.setColor(Color.WHITE);
+//		paint.setTextSize(50);
+//		paint.setTypeface(Typeface.DEFAULT_BOLD);
+//		paint.setTextAlign(Align.CENTER);
+//		canvas.drawText("8 x 8 Grid", eightbtn.centerX(), eightbtn.centerY(),
+//				paint);
 	}
 
 	private boolean buttonPressed(RectF button, MotionEvent event) {
