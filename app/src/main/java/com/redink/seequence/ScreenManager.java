@@ -51,6 +51,7 @@ public class ScreenManager extends SurfaceView implements
 	}
 
 	public void draw(Canvas canvas) {
+		super.draw(canvas);
 		if (activeScreen != null)
 			activeScreen.draw(canvas);
 	}
