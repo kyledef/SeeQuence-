@@ -1,10 +1,12 @@
 package com.redink.seequence;
 
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 class GameThread extends Thread {
 
+	private static final String TAG = "GameThread";
 	private ScreenManager phoneScreen;
 	private SurfaceHolder surfaceHolder;
 	private boolean isRunning;
@@ -34,8 +36,10 @@ class GameThread extends Thread {
 
 	@Override
 	public void run() {
+		Log.d(TAG, "Run Of thread initiated");
 		Canvas canvas = null;
 		while (isRunning) {
+			Log.d(TAG, "Looped");
 			canvas = surfaceHolder.lockCanvas();
 			if (canvas != null) {
 				phoneScreen.update();
@@ -44,16 +48,19 @@ class GameThread extends Thread {
 				surfaceHolder.unlockCanvasAndPost(canvas);
 			}
 
-			// check to see if to pause
-			synchronized (this) {
-				while (pause) {
-					try {
-						wait();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
+//			if (pause){
+//				return; // Attempt to stop Thread
+//			}
+
+//			// check to see if to pause
+//			while (pause) {
+//				Log.d(TAG, "Paused");
+//				try {
+//					sleep(1000);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//			}
 		}
 	}
 }

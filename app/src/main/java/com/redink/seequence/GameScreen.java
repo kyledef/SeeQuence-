@@ -82,8 +82,7 @@ public class GameScreen extends Screen {
 		float right = left + (manager.width * (width / 100));
 		float bottom = top + (manager.height * (height / 100));
 
-		System.out.println("Drawing rect (" + left + "," + top + "," + right
-				+ "," + bottom);
+//		System.out.println("Drawing rect (" + left + "," + top + "," + right + "," + bottom);
 		return new RectF(left, top, right, bottom);
 	}
 
@@ -93,8 +92,7 @@ public class GameScreen extends Screen {
 		float right = left + (manager.width * (width / 100));
 		float bottom = top + (manager.width * (width / 100));
 
-		System.out.println("Drawing rect (" + left + "," + top + "," + right
-				+ "," + bottom);
+//		System.out.println("Drawing rect (" + left + "," + top + "," + right + "," + bottom);
 		return new RectF(left, top, right, bottom);
 	}
 

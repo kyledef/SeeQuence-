@@ -37,10 +37,10 @@ public class ScreenManager extends SurfaceView implements
 		return screenMap;
 	}
 
-	private ScreenManager(Activity activity) {
+	public ScreenManager(Activity activity) {
 		super(activity);
 		getHolder().addCallback(this);
-		screenMap = new HashMap<String, Screen>();
+		screenMap = new HashMap<>();
 		this.activity = activity;
 	}
 
@@ -82,7 +82,7 @@ public class ScreenManager extends SurfaceView implements
 	/**
 	 * Sets the Active Screen to be displayed by specifying the screen ScreenID
 	 * 
-	 * @param screenID
+	 * @param screenKey
 	 */
 	public void setActiveScreen(String screenKey) {
 		this.activeScreen = screenMap.get(screenKey);
@@ -94,7 +94,7 @@ public class ScreenManager extends SurfaceView implements
 	 */
 	public void pause() {
 		if (gameThread != null && activeScreen != null) {
-			gameThread.pause = true;
+			gameThread.shutDown();
 			activeScreen.pause();
 		}
 	}
@@ -103,12 +103,17 @@ public class ScreenManager extends SurfaceView implements
 	 * Resumes the running game thread
 	 */
 	public void resume() {
-		if (gameThread != null) {
-			synchronized (gameThread) {
-				gameThread.pause = false;
-				gameThread.notify();
-			}
+		if (gameThread != null) { // Skip First Run
+			gameThread = new GameThread(this);
+			gameThread.start();
 		}
+//		if (gameThread != null) {
+//			synchronized (gameThread) {
+//				gameThread.pause = false;
+//				gameThread.notify();
+//				setActiveScreen("GAMESELECT");
+//			}
+//		}
 	}
 
 	/**
@@ -141,16 +146,6 @@ public class ScreenManager extends SurfaceView implements
 		return super.onTouchEvent(event);
 	}
 
-	/**
-	 * Activates the active screen's accelerometer handling method
-	 * 
-	 * @param x
-	 * @param y
-	 */
-	public void sendSensorData(SensorEvent event) {
-		if (this.activeScreen != null)
-			activeScreen.processMotionInput(event);
-	}
 
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
