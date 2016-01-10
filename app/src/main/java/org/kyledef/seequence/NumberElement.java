@@ -1,7 +1,5 @@
 package org.kyledef.seequence;
 
-import java.util.Random;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -12,7 +10,7 @@ import android.graphics.Typeface;
 import android.hardware.SensorEvent;
 import android.view.MotionEvent;
 
-import com.redink.seequence.R;
+import java.util.Random;
 
 public class NumberElement extends Sprite {
 

@@ -7,15 +7,14 @@
  */
 package org.kyledef.seequence;
 
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.graphics.Canvas;
 import android.graphics.RectF;
-import android.hardware.SensorEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import java.util.HashMap;
 
 
 public class ScreenManager extends SurfaceView implements

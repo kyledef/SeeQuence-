@@ -1,11 +1,11 @@
 package org.kyledef.seequence;
 
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.hardware.SensorEvent;
 import android.view.MotionEvent;
+
+import java.util.List;
 
 public abstract class Screen {
 

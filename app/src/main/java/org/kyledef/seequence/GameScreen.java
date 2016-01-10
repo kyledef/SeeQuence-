@@ -1,10 +1,5 @@
 package org.kyledef.seequence;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -18,7 +13,10 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import com.redink.seequence.R;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class GameScreen extends Screen {
 
