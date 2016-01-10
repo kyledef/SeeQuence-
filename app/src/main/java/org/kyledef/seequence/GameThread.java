@@ -36,7 +36,7 @@ class GameThread extends Thread {
 
 	@Override
 	public void run() {
-		Log.d(TAG, "Run Of thread initiated");
+//		Log.d(TAG, "Run Of thread initiated");
 		Canvas canvas = null;
 		while (isRunning) {
 			canvas = surfaceHolder.lockCanvas();

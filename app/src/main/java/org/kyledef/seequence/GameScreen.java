@@ -138,7 +138,7 @@ public class GameScreen extends Screen {
 			generateSequences();
 			int numToInsert=0, pos=0, length = sequenceListToInsert.size();
 			for(int j :sequenceListToInsert){
-				Log.i("HI",""+j);
+//				Log.i("HI",""+j);
 			}
 			for (int i = 0; i < amount; ++i) {
 				for (int j = 0; j < amount; ++j) {
@@ -246,7 +246,7 @@ public class GameScreen extends Screen {
 //		return false;
 		if(sequence.size()>=4) {
 			if (sequenceSelection.get(0) == true) {
-				Log.i("EVEN","EVEN");
+//				Log.i("EVEN","EVEN");
 				if (checkEvenSolution()) {
 					sequenceSelection.set(0, false);
 					score += 5;
@@ -254,7 +254,7 @@ public class GameScreen extends Screen {
 				}
 			}
 			if (sequenceSelection.get(1) == true) {
-				Log.i("ODDD","ODDD");
+//				Log.i("ODDD","ODDD");
 				if (checkOddSolution()) {
 					sequenceSelection.set(1,false);
 					score+=5;
@@ -262,7 +262,7 @@ public class GameScreen extends Screen {
 				}
 			}
 			if (sequenceSelection.get(2) == true) {
-				Log.i("MULTIPLE","MULTIPLE");
+//				Log.i("MULTIPLE","MULTIPLE");
 				if (checkMultipleSolution()) {
 					sequenceSelection.set(2,false);
 					score+=10;
@@ -270,7 +270,7 @@ public class GameScreen extends Screen {
 				}
 			}
 			if (sequenceSelection.get(3) == true) {
-				Log.i("POWER CHECK","POWER");
+//				Log.i("POWER CHECK","POWER");
 				if (checkPowerSolution()) {
 					sequenceSelection.set(3,false);
 					score+=10;
@@ -301,14 +301,14 @@ public class GameScreen extends Screen {
 		}
 
 		if (this.button.contains(event.getX(), event.getY())) {
-			System.out.println("Enter pressed");
+//			System.out.println("Enter pressed");
 			if (checkSequence()) {
 				notify = "Correct! :)";
-				System.out.println("This is a sequence! " + score);
+//				System.out.println("This is a sequence! " + score);
 			}
 			else {
 				notify="Wrong! :(";
-				System.out.println("This is not a sequence.");
+//				System.out.println("This is not a sequence.");
 			}
 			// always empty the sequence
 			for (NumberElement e : sequence)
@@ -328,7 +328,7 @@ public class GameScreen extends Screen {
 	private void generateSequences() {
 		int i;
 		for (i = 0; i < 5; i++) {
-			Log.i(">>>>", "" + sequenceSelection.get(i));
+//			Log.i(">>>>", "" + sequenceSelection.get(i));
 			if (sequenceSelection.get(i)) {
 				if (i == 0)
 					generateEven();
@@ -355,7 +355,7 @@ public class GameScreen extends Screen {
 		int num = generateNumber(2, amount * amount);
 		if(num%2!=0) num++;
 		do{
-			Log.i("Adding EVEN", "" + num);
+//			Log.i("Adding EVEN", "" + num);
 			sequenceListToInsert.add(num);
 			num+=2;
 			i++;
@@ -367,9 +367,9 @@ public class GameScreen extends Screen {
 		e1 = this.sequence.get(i).getValue();
 		for(i=1;i<sequence.size();i++){
 			e2 = this.sequence.get(i).getValue();
-			Log.i("EVEN TEST",""+e1+"---"+""+e2);
+//			Log.i("EVEN TEST",""+e1+"---"+""+e2);
 			if(e2-e1!=2) {
-				Log.i("RETURNING FALSE","FALSE");
+//				Log.i("RETURNING FALSE","FALSE");
 				return false;
 			}
 			e1=e2;
@@ -382,7 +382,7 @@ public class GameScreen extends Screen {
 		int num = generateNumber(1, amount * amount);
 		if(num%2==0) num++;
 		do{
-			Log.i("Adding ODD", "" + num);
+//			Log.i("Adding ODD", "" + num);
 			sequenceListToInsert.add(num);
 			num+=2;
 			i++;
@@ -433,7 +433,7 @@ public class GameScreen extends Screen {
 		for(i=pos;i<=pos+3;i++){
 			if(!sequenceListToInsert.contains(new Integer(primes.get(i))))
 				sequenceListToInsert.add((primes.get(i)));
-			Log.i("Adding PRIME", "" +primes.get(i));
+//			Log.i("Adding PRIME", "" +primes.get(i));
 		}
 	}
 
@@ -460,7 +460,7 @@ public class GameScreen extends Screen {
 		int i = generateNumber(1,10);
 		int count=1;
 		while(count<=amount){
-			Log.i("Adding Multiple", "" + i * count);
+//			Log.i("Adding Multiple", "" + i * count);
 			if(!sequenceListToInsert.contains(new Integer(i*count)))
 				sequenceListToInsert.add(i*count);
 			count++;
@@ -486,7 +486,7 @@ public class GameScreen extends Screen {
 			Double sol = Math.pow(i,count);
 			if(!sequenceListToInsert.contains(sol.intValue()))
 				sequenceListToInsert.add(sol.intValue());
-			Log.i("Adding POWER", "" + sol);
+//			Log.i("Adding POWER", "" + sol);
 			count++;
 		}
 	}
@@ -502,7 +502,7 @@ public class GameScreen extends Screen {
 		}
 		count =0;
 		while(count<sequence.size()){
-			Log.i("COMPARING",""+checkList.get(count)+"---"+sequence.get(count).getValue());
+//			Log.i("COMPARING",""+checkList.get(count)+"---"+sequence.get(count).getValue());
 			if(checkList.get(count)!=sequence.get(count).getValue()){
 				return false;
 			}

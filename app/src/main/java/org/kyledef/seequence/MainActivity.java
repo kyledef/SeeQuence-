@@ -14,8 +14,6 @@ public class MainActivity extends Activity{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-//		phoneScreen = ScreenManager.getInstance(this);
 		phoneScreen = new ScreenManager(this);
 		setContentView(phoneScreen);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -73,6 +71,11 @@ public class MainActivity extends Activity{
 							| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 							| View.SYSTEM_UI_FLAG_FULLSCREEN
 							| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
+	}
+
+	@Override
+	public void onBackPressed() {
+		phoneScreen.endGame();
 	}
 
 }

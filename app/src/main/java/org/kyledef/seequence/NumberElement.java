@@ -55,7 +55,7 @@ public class NumberElement extends Sprite {
 	public boolean onTouchEvent(MotionEvent event) {
 		// TODO Auto-generated method stub
 		if (this.getDst().contains(event.getX(), event.getY())) {
-			System.out.println("Did u click?"  + event.getX() + " | " + event.getY());
+//			System.out.println("Did u click?"  + event.getX() + " | " + event.getY());
 			this.image = BitmapFactory.decodeResource(this.p.getContext()
 					.getResources(), R.drawable.selected);
 			return true;

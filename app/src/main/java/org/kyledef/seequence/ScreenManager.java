@@ -105,14 +105,9 @@ public class ScreenManager extends SurfaceView implements
 		if (gameThread != null) { // Skip First Run
 			gameThread = new GameThread(this);
 			gameThread.start();
+			screenReady = true;
+//			setActiveScreen("GAMESELECT");
 		}
-//		if (gameThread != null) {
-//			synchronized (gameThread) {
-//				gameThread.pause = false;
-//				gameThread.notify();
-//				setActiveScreen("GAMESELECT");
-//			}
-//		}
 	}
 
 	/**
@@ -175,7 +170,8 @@ public class ScreenManager extends SurfaceView implements
 	}
 
 	public void surfaceDestroyed(SurfaceHolder holder) {
-		gameThread.shutDown();
+		if (gameThread != null)
+			gameThread.shutDown();
 	}
 
 	public boolean sendTouchData(MotionEvent event) {
