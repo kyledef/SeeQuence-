@@ -1,4 +1,4 @@
-package com.redink.seequence;
+package org.kyledef.seequence;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

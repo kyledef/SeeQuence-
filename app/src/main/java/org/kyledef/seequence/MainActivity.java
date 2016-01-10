@@ -1,4 +1,4 @@
-package com.redink.seequence;
+package org.kyledef.seequence;
 
 import android.app.Activity;
 import android.hardware.Sensor;
