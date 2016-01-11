@@ -149,7 +149,11 @@ public class GameScreen extends Screen {
 					}
 					else {
 						//Generate Random Number Here
+
 						numToInsert=generateNumber(1,100);
+						while(sequenceListToInsert.contains(new Integer(numToInsert))){
+							numToInsert=generateNumber(1,100);
+						}
 					}
 					this.elementList
 							.add(new NumberElement(img, (width * i)
@@ -363,12 +367,18 @@ public class GameScreen extends Screen {
 	}
 
 	private boolean checkEvenSolution(){
-		int i=0,e1,e2;
-		e1 = this.sequence.get(i).getValue();
-		for(i=1;i<sequence.size();i++){
+		int i=0,e1,e2,diff;
+		e2 = this.sequence.get(i).getValue();
+		e1 = this.sequence.get(i+1).getValue();
+		diff = e2-e1;
+		diff = Math.abs(diff);
+		if(diff%2!=0){
+			return false;
+		}
+		for(i=2;i<sequence.size();i++){
 			e2 = this.sequence.get(i).getValue();
 			Log.i("EVEN TEST",""+e1+"---"+""+e2);
-			if(e2-e1!=2) {
+			if(Math.abs(e2-e1)!=diff || diff%2!=0) {
 				Log.i("RETURNING FALSE","FALSE");
 				return false;
 			}
@@ -390,12 +400,21 @@ public class GameScreen extends Screen {
 	}
 
 	private boolean checkOddSolution(){
-		int i=0,e1,e2;
-		e1 = this.sequence.get(i).getValue();
-		for(i=1;i<sequence.size();i++){
+		int i=0,e1,e2,diff;
+		e2 = this.sequence.get(i).getValue();
+		e1 = this.sequence.get(i+1).getValue();
+		diff = e2-e1;
+		diff = Math.abs(diff);
+		if(diff%2!=1){
+			return false;
+		}
+		for(i=2;i<sequence.size();i++){
 			e2 = this.sequence.get(i).getValue();
-			if(e2-e1!=2)
+			Log.i("ODD TEST",""+e1+"---"+""+e2);
+			if(Math.abs(e2-e1)!=diff || diff%2!=1) {
+				Log.i("RETURNING FALSE","FALSE");
 				return false;
+			}
 			e1=e2;
 		}
 		return true;
