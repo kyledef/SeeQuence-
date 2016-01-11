@@ -21,16 +21,16 @@ import java.util.Random;
 public class GameScreen extends Screen {
 
 	// private NumberGenerator generator;
-	private List<NumberElement> sequence = new ArrayList<NumberElement>();
+	private List<NumberElement> sequence = new ArrayList<>();
 	private int score = 0;
 	private long timer;
 
 	private RectF border1, border2, button, scoreRect, timerRect;
 	private int amount = 4;
-	private List<NumberElement> elementList = new ArrayList<NumberElement>();
-	private List<Boolean> sequenceSelection = new ArrayList<Boolean>();
-	private List<Integer>  sequenceListToInsert = new ArrayList<Integer>();
-	private ArrayList<Integer> primes = new ArrayList<Integer>();
+	private List<NumberElement> elementList = new ArrayList<>();
+	private List<Boolean> sequenceSelection = new ArrayList<>();
+	private List<Integer>  sequenceListToInsert = new ArrayList<>();
+	private ArrayList<Integer> primes = new ArrayList<>();
 
 	private String sequenceString="";
 	private String notify="";
@@ -136,7 +136,7 @@ public class GameScreen extends Screen {
 			float width = border2.width() / amount;
 			float height = border2.height() / amount;
 			generateSequences();
-			int numToInsert=0, pos=0, length = sequenceListToInsert.size();
+			int numToInsert, pos=0, length = sequenceListToInsert.size();
 			for(int j :sequenceListToInsert){
 				Log.i("HI",""+j);
 			}
@@ -249,7 +249,7 @@ public class GameScreen extends Screen {
 //		} // else sequence to short to be considered.
 //		return false;
 		if(sequence.size()>=4) {
-			if (sequenceSelection.get(0) == true) {
+			if (sequenceSelection.get(0)) {
 				Log.i("EVEN","EVEN");
 				if (checkEvenSolution()) {
 					sequenceSelection.set(0, false);
@@ -257,7 +257,7 @@ public class GameScreen extends Screen {
 					return true;
 				}
 			}
-			if (sequenceSelection.get(1) == true) {
+			if (sequenceSelection.get(1)) {
 				Log.i("ODDD","ODDD");
 				if (checkOddSolution()) {
 					sequenceSelection.set(1,false);
@@ -265,7 +265,7 @@ public class GameScreen extends Screen {
 					return true;
 				}
 			}
-			if (sequenceSelection.get(2) == true) {
+			if (sequenceSelection.get(2)) {
 				Log.i("MULTIPLE","MULTIPLE");
 				if (checkMultipleSolution()) {
 					sequenceSelection.set(2,false);
@@ -273,19 +273,33 @@ public class GameScreen extends Screen {
 					return true;
 				}
 			}
-			if (sequenceSelection.get(3) == true) {
+			if (sequenceSelection.get(3)) {
 				Log.i("POWER CHECK","POWER");
 				if (checkPowerSolution()) {
 					sequenceSelection.set(3,false);
 					score+=10;
 					return true;
 				}
+				else{
+					if(checkPowerSolutionReverse()){
+						sequenceSelection.set(2,false);
+						score+=10;
+						return true;
+					}
+				}
 			}
-			if (sequenceSelection.get(4) == true) {
+			if (sequenceSelection.get(4)) {
 				if (checkPrimeSolution()) {
 					sequenceSelection.set(4,false);
 					score+=15;
 					return true;
+				}
+				else{
+					if(checkPrimeSolutionReverse()){
+						sequenceSelection.set(4,false);
+						score+=15;
+						return true;
+					}
 				}
 			}
 		}
@@ -450,7 +464,7 @@ public class GameScreen extends Screen {
 		int pos = generateNumber(0,primes.size()-amount);
 		int i;
 		for(i=pos;i<=pos+3;i++){
-			if(!sequenceListToInsert.contains(new Integer(primes.get(i))))
+			if(!sequenceListToInsert.contains(primes.get(i)))
 				sequenceListToInsert.add((primes.get(i)));
 			Log.i("Adding PRIME", "" +primes.get(i));
 		}
@@ -460,11 +474,30 @@ public class GameScreen extends Screen {
 		int sequencePosition=0;
 		int start = sequence.get(sequencePosition).getValue();
 		sequencePosition++;
+		if(primes.contains(start)){
+			int pos = primes.indexOf(start);
+//			Log.i("VALUE OF POS",">>"+pos);
+			int i;
+			for(i=pos+1;i<=pos+3;i++){
+//				Log.i("VALUE OF POS",">>"+i);
+//				Log.i("POSITION-POS2", "" + primes.get(i)+"-"+sequence.get(sequencePosition).getValue());
+				if(primes.get(i)!=(sequence.get(sequencePosition).getValue()))
+					return false;
+				sequencePosition++;
+			}
+		}
+		return true;
+	}
+
+	private boolean checkPrimeSolutionReverse(){
+		int sequencePosition=sequence.size()-1;
+		int start = sequence.get(sequencePosition).getValue();
+		sequencePosition--;
 		if(primes.contains(new Integer(start))){
 			int pos = primes.indexOf(new Integer(start));
 //			Log.i("VALUE OF POS",">>"+pos);
 			int i;
-			for(i=pos+1;i<=pos+3;i++){
+			for(i=pos-1;i>=pos+3;i++){
 //				Log.i("VALUE OF POS",">>"+i);
 //				Log.i("POSITION-POS2", "" + primes.get(i)+"-"+sequence.get(sequencePosition).getValue());
 				if(primes.get(i)!=(sequence.get(sequencePosition).getValue()))
@@ -487,10 +520,10 @@ public class GameScreen extends Screen {
 	}
 
 	private boolean checkMultipleSolution(){
-		int multiple = sequence.get(1).getValue() - sequence.get(0).getValue();
+		int multiple = Math.abs(sequence.get(1).getValue() - sequence.get(0).getValue());
 		int i, newMultiple;
 		for(i=1;i<sequence.size()-1;i++){
-			newMultiple = sequence.get(i+1).getValue()-sequence.get(i).getValue();
+			newMultiple = Math.abs(sequence.get(i+1).getValue()-sequence.get(i).getValue());
 			if(newMultiple!=multiple){
 				return false;
 			}
@@ -499,7 +532,7 @@ public class GameScreen extends Screen {
 	}
 
 	private void generatePower(){
-		int i = generateNumber(2,10);
+		int i = generateNumber(2, 10);
 		int count=1;
 		while(count<5){
 			Double sol = Math.pow(i,count);
@@ -511,7 +544,7 @@ public class GameScreen extends Screen {
 	}
 
 	private boolean checkPowerSolution(){
-		ArrayList<Integer> checkList = new ArrayList<Integer>();
+		ArrayList<Integer> checkList = new ArrayList<>();
 		int start = sequence.get(0).getValue();
 		int count=1;
 		while(count<5){
@@ -530,9 +563,34 @@ public class GameScreen extends Screen {
 		return true;
 	}
 
+	private boolean checkPowerSolutionReverse(){
+		ArrayList<Integer> checkList = new ArrayList<>();
+		int start = sequence.get(sequence.size()-1).getValue();
+		int count=1,pos=0;
+		while(count<5){
+			Double sol = Math.pow(start,count);
+			checkList.add(sol.intValue());
+			count++;
+		}
+		count =checkList.size()-1;
+		while(count>=0){
+			Log.i("COMPARING2",""+checkList.get(count)+"---"+sequence.get(pos).getValue());
+			if(checkList.get(count)!=sequence.get(pos++).getValue()){
+				return false;
+			}
+			count--;
+		}
+		return true;
+	}
+
 	private int generateNumber(int min, int max) {
 		Random rand = new Random();
 		return rand.nextInt((max - min) + 1) + min;
+	}
+
+	public void resetGameScreenVariables(){
+		this.elementList.clear();
+		this.sequenceListToInsert.clear();
 	}
 
 }

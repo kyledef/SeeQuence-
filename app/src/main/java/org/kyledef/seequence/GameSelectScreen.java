@@ -169,6 +169,7 @@ public class GameSelectScreen extends Screen {
 			this.manager.setActiveScreen("INSTRUCTIONS");
 		}
 		if (buttonPressed(fourbtn, event)) {
+			GameScreen.getInstance(this.manager).resetGameScreenVariables();
 			GameScreen.getInstance(this.manager).setAmount(4);
 			GameScreen.getInstance(this.manager).addSequence(true);//even
 			GameScreen.getInstance(this.manager).addSequence(true);//odd
@@ -177,6 +178,7 @@ public class GameSelectScreen extends Screen {
 			GameScreen.getInstance(this.manager).addSequence(false);//prime
 			this.manager.setActiveScreen("GAMESCREEN");
 		} else if (buttonPressed(fivebtn, event)) {
+			GameScreen.getInstance(this.manager).resetGameScreenVariables();
 			GameScreen.getInstance(this.manager).setAmount(5);
 			GameScreen.getInstance(this.manager).addSequence(true);//even
 			GameScreen.getInstance(this.manager).addSequence(true);//odd
@@ -185,6 +187,7 @@ public class GameSelectScreen extends Screen {
 			GameScreen.getInstance(this.manager).addSequence(false);//prime
 			this.manager.setActiveScreen("GAMESCREEN");
 		} else if (buttonPressed(sixbtn, event)) {
+			GameScreen.getInstance(this.manager).resetGameScreenVariables();
 			GameScreen.getInstance(this.manager).setAmount(6);
 			GameScreen.getInstance(this.manager).addSequence(true);//even
 			GameScreen.getInstance(this.manager).addSequence(true);//odd
@@ -193,6 +196,7 @@ public class GameSelectScreen extends Screen {
 			GameScreen.getInstance(this.manager).addSequence(false);//prime
 			this.manager.setActiveScreen("GAMESCREEN");
 		} else if (buttonPressed(sevenbtn, event)) {
+			GameScreen.getInstance(this.manager).resetGameScreenVariables();
 			GameScreen.getInstance(this.manager).setAmount(7);
 			GameScreen.getInstance(this.manager).addSequence(true);//even
 			GameScreen.getInstance(this.manager).addSequence(true);//odd
