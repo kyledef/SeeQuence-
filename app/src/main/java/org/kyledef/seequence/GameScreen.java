@@ -405,13 +405,13 @@ public class GameScreen extends Screen {
 		e1 = this.sequence.get(i+1).getValue();
 		diff = e2-e1;
 		diff = Math.abs(diff);
-		if(diff%2!=1){
+		if(e1%2!=1 || e2%2!=1){
 			return false;
 		}
 		for(i=2;i<sequence.size();i++){
 			e2 = this.sequence.get(i).getValue();
 			Log.i("ODD TEST",""+e1+"---"+""+e2);
-			if(Math.abs(e2-e1)!=diff || diff%2!=1) {
+			if(Math.abs(e2-e1)!=diff || e1%2!=1 || e2%2!=1) {
 				Log.i("RETURNING FALSE","FALSE");
 				return false;
 			}
