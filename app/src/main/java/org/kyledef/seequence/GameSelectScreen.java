@@ -7,9 +7,11 @@ import android.graphics.Paint.Align;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.hardware.SensorEvent;
+import android.util.Log;
 import android.view.MotionEvent;
 
 public class GameSelectScreen extends Screen {
+	private static final String TAG = "GameSelectScreen" ;
 	private static GameSelectScreen instance = null;
 
 	private GameSelectScreen(ScreenManager manager) {
@@ -164,6 +166,7 @@ public class GameSelectScreen extends Screen {
 
 	@Override
 	public boolean processTouchInput(MotionEvent event) {
+		Log.d(TAG, "Process Touch Input Received: " + event.toString());
 		if(buttonPressed(instructbtn,event)){
 			this.manager.setActiveScreen("INSTRUCTIONS");
 		}
@@ -208,12 +211,6 @@ public class GameSelectScreen extends Screen {
 //			GameScreen.getInstance(this.manager).setAmount(8);
 //			this.manager.setActiveScreen("GAMESCREEN");
 //		}
-		return false;
-	}
-
-	@Override
-	public boolean processMotionInput(SensorEvent event) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

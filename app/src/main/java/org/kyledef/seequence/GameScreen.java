@@ -20,6 +20,7 @@ import java.util.Random;
 
 public class GameScreen extends Screen {
 
+	private static final String TAG = "GameScreen";
 	// private NumberGenerator generator;
 	private List<NumberElement> sequence = new ArrayList<>();
 	private int score = 0;
@@ -308,6 +309,7 @@ public class GameScreen extends Screen {
 
 	@Override
 	public boolean processTouchInput(MotionEvent event) {
+		Log.i(TAG, "Received: "+ event.toString());
 		// if the element was touched exit the loop.
 		for (NumberElement e : elementList) {
 			if (e.onTouchEvent(event)) {
@@ -337,11 +339,6 @@ public class GameScreen extends Screen {
 		return false;
 	}
 
-	@Override
-	public boolean processMotionInput(SensorEvent event) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	private void generateSequences() {
 		int i;

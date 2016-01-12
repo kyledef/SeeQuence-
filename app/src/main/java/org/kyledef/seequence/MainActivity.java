@@ -2,18 +2,21 @@ package org.kyledef.seequence;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
 public class MainActivity extends Activity{
 
+	private static final String TAG = "MainActivity";
 	private ScreenManager phoneScreen = null;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.i(TAG, "OnCreate of Main Activity called");
 		phoneScreen = new ScreenManager(this);
 		setContentView(phoneScreen);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -22,10 +25,12 @@ public class MainActivity extends Activity{
 
 	protected void onResume() {
 		super.onResume();
+		Log.i(TAG, "onResume of Main Activity called");
 		phoneScreen.resume();
 	}
 
 	protected void onPause() {
+		Log.i(TAG, "onPause of Main Activity called");
 		phoneScreen.pause();
 		super.onPause();
 	}
@@ -75,6 +80,7 @@ public class MainActivity extends Activity{
 
 	@Override
 	public void onBackPressed() {
+		Log.i(TAG, "pnBackPressed of Main Activity called");
 		phoneScreen.endGame();
 	}
 

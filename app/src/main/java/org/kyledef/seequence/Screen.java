@@ -32,8 +32,6 @@ public abstract class Screen {
 
 	public abstract boolean processTouchInput(MotionEvent event);
 
-	public abstract boolean processMotionInput(SensorEvent event);
-
 	public String getName() {
 		return this.screenName;
 	}

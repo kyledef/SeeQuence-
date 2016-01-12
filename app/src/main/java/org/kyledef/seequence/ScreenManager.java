@@ -10,6 +10,7 @@ package org.kyledef.seequence;
 import android.app.Activity;
 import android.graphics.Canvas;
 import android.graphics.RectF;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 public class ScreenManager extends SurfaceView implements
 		SurfaceHolder.Callback {
 
+	private static final String TAG = "ScreenManager";
 	private static ScreenManager phoneScreen = null;
 	protected float width, height;
 	protected boolean screenReady;
@@ -38,6 +40,7 @@ public class ScreenManager extends SurfaceView implements
 
 	public ScreenManager(Activity activity) {
 		super(activity);
+		Log.i(TAG, "Constructor of Screen Manager called");
 		getHolder().addCallback(this);
 		screenMap = new HashMap<>();
 		this.activity = activity;
@@ -53,11 +56,17 @@ public class ScreenManager extends SurfaceView implements
 		super.draw(canvas);
 		if (activeScreen != null)
 			activeScreen.draw(canvas);
+		else
+			Log.i(TAG, "Active Screen is null");
+
 	}
 
 	public void update() {
 		if (activeScreen != null)
 			activeScreen.update();
+		else
+			Log.i(TAG, "Active Screen is null");
+
 	}
 
 	/**
@@ -92,6 +101,8 @@ public class ScreenManager extends SurfaceView implements
 	 * Pauses the running game thread
 	 */
 	public void pause() {
+
+		Log.i(TAG, "pause of Screen Manager called");
 		if (gameThread != null && activeScreen != null) {
 			gameThread.shutDown();
 			activeScreen.pause();
@@ -102,6 +113,8 @@ public class ScreenManager extends SurfaceView implements
 	 * Resumes the running game thread
 	 */
 	public void resume() {
+
+		Log.i(TAG, "resume of Screen Manager called");
 		if (gameThread != null) { // Skip First Run
 			gameThread = new GameThread(this);
 			gameThread.start();
@@ -114,10 +127,18 @@ public class ScreenManager extends SurfaceView implements
 	 * Ends the currently running gameThread
 	 */
 	public void endGame() {
+		Log.i(TAG, "end game of Screen Manager called");
 		if (gameThread != null) {
 			gameThread.shutDown();
 			gameThread = null;
 		}
+		// attempting to force garbage collection
+		activeScreen.pause();
+		activeScreen = null;
+		screenMap.clear();
+		screenMap = null;
+
+		// end activity
 		activity.finish();
 	}
 

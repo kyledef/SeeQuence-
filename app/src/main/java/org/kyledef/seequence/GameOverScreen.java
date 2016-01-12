@@ -82,10 +82,4 @@ public class GameOverScreen extends Screen{
 		return false;
 	}
 
-	@Override
-	public boolean processMotionInput(SensorEvent event) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }

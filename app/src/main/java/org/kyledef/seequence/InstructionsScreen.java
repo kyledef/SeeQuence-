@@ -14,7 +14,7 @@ import android.view.MotionEvent;
 public class InstructionsScreen extends Screen {
 
     public static InstructionsScreen instance = null;
-    private int score=0;
+    private int score = 0;
 
     private InstructionsScreen(ScreenManager manager) {
         super(manager, "INSTRUCTIONS");
@@ -36,7 +36,7 @@ public class InstructionsScreen extends Screen {
 
     }
 
-    public void setScore(int score){
+    public void setScore(int score) {
         this.score = score;
     }
 
@@ -98,9 +98,9 @@ public class InstructionsScreen extends Screen {
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         canvas.drawText("*Each sequence must be >=4 numbers.", window.centerX() - 350, window.centerY() + 270,
                 paint);
-        canvas.drawText("*Sequences having even, odd and multiples ", window.centerX() - 350, window.centerY()+320,
+        canvas.drawText("*Sequences having even, odd and multiples ", window.centerX() - 350, window.centerY() + 320,
                 paint);
-        canvas.drawText(" will get longer as the grid gets bigger! ", window.centerX() - 350, window.centerY()+360,
+        canvas.drawText(" will get longer as the grid gets bigger! ", window.centerX() - 350, window.centerY() + 360,
                 paint);
 
         paint.setTextSize(scaleMeasurement(6));
@@ -132,12 +132,6 @@ public class InstructionsScreen extends Screen {
     @Override
     public boolean processTouchInput(MotionEvent event) {
         this.manager.setActiveScreen("GAMESELECT");
-        return false;
-    }
-
-    @Override
-    public boolean processMotionInput(SensorEvent event) {
-        // TODO Auto-generated method stub
         return false;
     }
 }
