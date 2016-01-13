@@ -117,7 +117,7 @@ public class GameScreen extends Screen {
 		// new RectF(window.left + 35, window.top + 210,
 		// window.right - 35, window.width() + 190);
 
-		this.button = this.getRect(5, 78, 25, 13);
+		this.button = this.getRect(5, 85, 90, 8);
 		// new RectF(window.left + 25, window.bottom - 250,
 		// window.right - 25, window.bottom - 25);
 
@@ -198,7 +198,7 @@ public class GameScreen extends Screen {
 
 		paint.setColor(Color.BLACK);
 		paint.setTextSize(scaleMeasurement(3));
-		canvas.drawText("Check Sequence", this.scaleMeasurementW(5), this.scaleMeasurement(94), paint);
+		canvas.drawText("Check Sequence", this.scaleMeasurementW(31), this.scaleMeasurement(90), paint);
 
 		paint.setColor(Color.BLACK);
 		paint.setTextSize(this.scaleMeasurement(3));
@@ -206,18 +206,18 @@ public class GameScreen extends Screen {
 		canvas.drawText("You ", this.scaleMeasurementW(8), this.scaleMeasurement(72), paint);
 		canvas.drawText("Selected:", this.scaleMeasurementW(5), this.scaleMeasurement(75), paint);
 
-		canvas.drawText("Message:", this.scaleMeasurementW(50), this.scaleMeasurement(80), paint);
+		canvas.drawText("Message:", this.scaleMeasurementW(5), this.scaleMeasurement(80), paint);
 
 		paint.setColor(Color.WHITE);
 		paint.setTextSize(this.scaleMeasurement(3));
 		canvas.drawText("" + this.sequenceString, this.scaleMeasurementW(28),
 				this.scaleMeasurement(75), paint);
 
-		paint.setColor(Color.BLACK);
+		paint.setColor(Color.WHITE);
 		paint.setTextSize(this.scaleMeasurement(3));
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
-		canvas.drawText("" + this.notify, this.scaleMeasurementW(50),
-				this.scaleMeasurement(85), paint);
+		canvas.drawText("" + this.notify, this.scaleMeasurementW(30),
+				this.scaleMeasurement(80), paint);
 
 		paint.setColor(Color.BLACK);
 		paint.setTextSize(this.scaleMeasurement(4));
