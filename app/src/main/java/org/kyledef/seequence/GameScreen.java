@@ -322,34 +322,36 @@ public class GameScreen extends Screen {
 		Log.i(TAG, "Received: "+ event.toString());
 		// if the element was touched exit the loop.
 		for (NumberElement e : elementList) {
-			if (e.onTouchEvent(event)) {
+			if(sequence.size()>=7){
+				notify="Max Size is 7!";
+//				return true;
+			}
+			else if (e.onTouchEvent(event)) {
 				sequence.add(e);
-				sequenceString+=" "+e.getValue()+",";
+				if(sequence.size()==7)
+					sequenceString+=" "+e.getValue()+".";
+				else
+					sequenceString+=" "+e.getValue()+",";
 				notify="";
 				return true;
 			}
 		}
 
 		if (this.button.contains(event.getX(), event.getY())) {
-			if(sequence.size()>7){
-				notify="Sequence Too Long";
-			}
-			else {
 //			System.out.println("Enter pressed");
-				if (checkSequence()) {
-					notify = "Correct Sequence!";
+			if (checkSequence()) {
+				notify = "Correct Sequence!";
 //				System.out.println("This is a sequence! " + score);
-				} else {
-					notify = "Wrong Sequence!";
+			} else {
+				notify = "Wrong Sequence!";
 //				System.out.println("This is not a sequence.");
-				}
 			}
-			// always empty the sequence
-			for (NumberElement e : sequence)
-				e.reset();
-			this.sequence.clear();
-			sequenceString="";
 		}
+		// always empty the sequence
+		for (NumberElement e : sequence)
+			e.reset();
+		this.sequence.clear();
+		sequenceString="";
 		return false;
 	}
 
