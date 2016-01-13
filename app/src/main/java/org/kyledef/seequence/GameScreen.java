@@ -26,7 +26,7 @@ public class GameScreen extends Screen {
 	private int score = 0;
 	private long timer;
 
-	private RectF border1, border2, button, scoreRect, timerRect;
+	private RectF border1, border2, button, scoreRect, timerRect, sequenceRect;
 	private int amount = 4;
 	private List<NumberElement> elementList = new ArrayList<>();
 	private List<Boolean> sequenceSelection = new ArrayList<>();
@@ -117,7 +117,7 @@ public class GameScreen extends Screen {
 		// new RectF(window.left + 35, window.top + 210,
 		// window.right - 35, window.width() + 190);
 
-		this.button = this.getRect(5, 82, 20, 15);
+		this.button = this.getRect(5, 78, 25, 13);
 		// new RectF(window.left + 25, window.bottom - 250,
 		// window.right - 25, window.bottom - 25);
 
@@ -130,6 +130,8 @@ public class GameScreen extends Screen {
 		// = new RectF(window.left + 25, window.top + 25,
 		// window.right - 25, window.top + 175);
 
+		this.sequenceRect = this.getRect(45,82,20,15);
+
 		try {
 			Bitmap img = BitmapFactory.decodeResource(context.getResources(),
 					R.drawable.unselected);
@@ -138,9 +140,9 @@ public class GameScreen extends Screen {
 			float height = border2.height() / amount;
 			generateSequences();
 			int numToInsert, pos=0, length = sequenceListToInsert.size();
-			for(int j :sequenceListToInsert){
-//				Log.i("HI",""+j);
-			}
+//			for(int j :sequenceListToInsert){
+////				Log.i("HI",""+j);
+//			}
 			for (int i = 0; i < amount; ++i) {
 				for (int j = 0; j < amount; ++j) {
 
@@ -192,22 +194,30 @@ public class GameScreen extends Screen {
 		canvas.drawRect(border2, paint);
 
 		paint.setColor(Color.GREEN);
-		canvas.drawRoundRect(button, 15, 15, paint);
+		canvas.drawRoundRect(button, 15, 25, paint);
 
 		paint.setColor(Color.BLACK);
-		paint.setTextSize(this.scaleMeasurement(4));
+		paint.setTextSize(scaleMeasurement(3));
+		canvas.drawText("Check Sequence", this.scaleMeasurementW(5), this.scaleMeasurement(94), paint);
+
+		paint.setColor(Color.BLACK);
+		paint.setTextSize(this.scaleMeasurement(3));
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
-		canvas.drawText("Sequence:", 320, 850, paint);
+		canvas.drawText("You ", this.scaleMeasurementW(8), this.scaleMeasurement(72), paint);
+		canvas.drawText("Selected:", this.scaleMeasurementW(5), this.scaleMeasurement(75), paint);
+
+		canvas.drawText("Message:",this.scaleMeasurementW(50),this.scaleMeasurement(80),paint);
 
 		paint.setColor(Color.WHITE);
-		canvas.drawText("" + this.sequenceString, 250,
-				920, paint);
+		paint.setTextSize(this.scaleMeasurement(3));
+		canvas.drawText("" + this.sequenceString, this.scaleMeasurementW(28),
+				this.scaleMeasurement(75), paint);
 
 		paint.setColor(Color.BLACK);
-		paint.setTextSize(this.scaleMeasurement(4));
+		paint.setTextSize(this.scaleMeasurement(3));
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
-		canvas.drawText("" + this.notify, 300,
-				980, paint);
+		canvas.drawText("" + this.notify, this.scaleMeasurementW(50),
+				this.scaleMeasurement(85), paint);
 
 		paint.setColor(Color.BLACK);
 		paint.setTextSize(this.scaleMeasurement(4));
@@ -216,7 +226,7 @@ public class GameScreen extends Screen {
 		canvas.drawText("Score: " + this.score, this.scaleMeasurement(5),
 				scoreRect.centerY(), paint);
 		paint.setTextAlign(Align.RIGHT);
-		canvas.drawText("Timer: " + this.timer, this.scaleMeasurement(60),
+		canvas.drawText("Timer: " + this.timer, this.scaleMeasurement(52),
 				timerRect.centerY(), paint);
 
 	}
@@ -321,14 +331,18 @@ public class GameScreen extends Screen {
 		}
 
 		if (this.button.contains(event.getX(), event.getY())) {
-//			System.out.println("Enter pressed");
-			if (checkSequence()) {
-				notify = "Correct! :)";
-//				System.out.println("This is a sequence! " + score);
+			if(sequence.size()>7){
+				notify="Sequence Too Long";
 			}
 			else {
-				notify="Wrong! :(";
+//			System.out.println("Enter pressed");
+				if (checkSequence()) {
+					notify = "Correct Sequence!";
+//				System.out.println("This is a sequence! " + score);
+				} else {
+					notify = "Wrong Sequence!";
 //				System.out.println("This is not a sequence.");
+				}
 			}
 			// always empty the sequence
 			for (NumberElement e : sequence)
@@ -383,7 +397,7 @@ public class GameScreen extends Screen {
 		e1 = this.sequence.get(i+1).getValue();
 		diff = e2-e1;
 		diff = Math.abs(diff);
-		if(diff%2!=0){
+		if(diff==0 || diff%2!=0){
 			return false;
 		}
 		for(i=2;i<sequence.size();i++){
@@ -416,7 +430,7 @@ public class GameScreen extends Screen {
 		e1 = this.sequence.get(i+1).getValue();
 		diff = e2-e1;
 		diff = Math.abs(diff);
-		if(e1%2!=1 || e2%2!=1){
+		if(e1%2!=1 || e2%2!=1 || diff==0){
 			return false;
 		}
 		for(i=2;i<sequence.size();i++){
