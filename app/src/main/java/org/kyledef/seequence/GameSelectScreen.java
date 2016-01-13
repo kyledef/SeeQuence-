@@ -175,7 +175,7 @@ public class GameSelectScreen extends Screen {
 			GameScreen.getInstance(this.manager).setAmount(4);
 			GameScreen.getInstance(this.manager).addSequence(true);//even
 			GameScreen.getInstance(this.manager).addSequence(true);//odd
-			GameScreen.getInstance(this.manager).addSequence(false);//multiple
+			GameScreen.getInstance(this.manager).addSequence(true);//multiple
 			GameScreen.getInstance(this.manager).addSequence(false);//power
 			GameScreen.getInstance(this.manager).addSequence(false);//prime
 			this.manager.setActiveScreen("GAMESCREEN");

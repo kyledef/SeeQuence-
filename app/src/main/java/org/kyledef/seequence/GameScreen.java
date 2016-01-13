@@ -206,7 +206,7 @@ public class GameScreen extends Screen {
 		canvas.drawText("You ", this.scaleMeasurementW(8), this.scaleMeasurement(72), paint);
 		canvas.drawText("Selected:", this.scaleMeasurementW(5), this.scaleMeasurement(75), paint);
 
-		canvas.drawText("Message:",this.scaleMeasurementW(50),this.scaleMeasurement(80),paint);
+		canvas.drawText("Message:", this.scaleMeasurementW(50), this.scaleMeasurement(80), paint);
 
 		paint.setColor(Color.WHITE);
 		paint.setTextSize(this.scaleMeasurement(3));
@@ -265,6 +265,9 @@ public class GameScreen extends Screen {
 				if (checkEvenSolution()) {
 					sequenceSelection.set(0, false);
 					score += 5;
+					if(sequence.size()>=5){
+						score+=(sequence.size()-4)*2;
+					}
 					return true;
 				}
 			}
@@ -273,6 +276,9 @@ public class GameScreen extends Screen {
 				if (checkOddSolution()) {
 					sequenceSelection.set(1,false);
 					score+=5;
+					if(sequence.size()>=5){
+						score+=(sequence.size()-4)*2;
+					}
 					return true;
 				}
 			}
@@ -281,6 +287,9 @@ public class GameScreen extends Screen {
 				if (checkMultipleSolution()) {
 					sequenceSelection.set(2,false);
 					score+=10;
+					if(sequence.size()>=5){
+						score+=(sequence.size()-4)*3;
+					}
 					return true;
 				}
 			}
