@@ -8,9 +8,7 @@ import android.graphics.Typeface;
 import android.hardware.SensorEvent;
 import android.view.MotionEvent;
 
-/**
- * Created by Shiva on 1/8/2016.
- */
+
 public class InstructionsScreen extends Screen {
 
     public static InstructionsScreen instance = null;
@@ -26,8 +24,12 @@ public class InstructionsScreen extends Screen {
         return instance;
     }
 
-    private float scaleMeasurement(float size) {
+    private float scaleMeasurementW(float size) {
         return manager.width * (size / 100);
+    }
+
+    private float scaleMeasurement(float size){
+        return manager.height * (size /100);
     }
 
     @Override
@@ -49,66 +51,66 @@ public class InstructionsScreen extends Screen {
         canvas.drawRect(this.manager.getWindow(), paint);
 
         paint.setColor(Color.WHITE);
-        paint.setTextSize(scaleMeasurement(7));
+        paint.setTextSize(scaleMeasurement(5));
         paint.setTypeface(Typeface.DEFAULT_BOLD);
-        canvas.drawText("Instructions", window.centerX() - 350, window.centerY() - 430,
+        canvas.drawText("Instructions", scaleMeasurementW(1), scaleMeasurement(10),
                 paint);
 
 
         paint.setColor(Color.BLACK);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
-        paint.setTextSize(scaleMeasurement(5));
-        canvas.drawText("-> The game has 4 levels, with each level ", window.centerX() - 350, window.centerY() + -370,
+        paint.setTextSize(scaleMeasurement(3));
+        canvas.drawText("-> The game has 4 levels, with each level ", this.scaleMeasurementW(1), this.scaleMeasurement(15),
                 paint);
-        canvas.drawText("     having new sequences to determine.", window.centerX() - 350, window.centerY() + -330,
+        canvas.drawText("     having new sequences to determine.", this.scaleMeasurementW(1), this.scaleMeasurement(18),
                 paint);
-        canvas.drawText("-> Tap the green button to check answer. ", window.centerX() - 350, window.centerY() - 290,
+        canvas.drawText("-> Tap the green button to check answer. ", this.scaleMeasurementW(1), this.scaleMeasurement(22),
                 paint);
-        canvas.drawText("-> Duplicate sequences are not", window.centerX() - 350, window.centerY() - 250,
+        canvas.drawText("-> Duplicate sequences are not", this.scaleMeasurementW(1), this.scaleMeasurement(26),
                 paint);
-        canvas.drawText("     considered.", window.centerX() - 350, window.centerY() - 210,
+        canvas.drawText("     considered.", this.scaleMeasurementW(1), this.scaleMeasurement(29),
                 paint);
 
-        paint.setTextSize(scaleMeasurement(7));
+        paint.setTextSize(scaleMeasurement(5));
         paint.setColor(Color.WHITE);
-        canvas.drawText("Levels", window.centerX() - 350, window.centerY() - 160,
+        canvas.drawText("Levels", scaleMeasurementW(1), scaleMeasurement(35),
                 paint);
 
-        paint.setTextSize(scaleMeasurement(5));
+        paint.setTextSize(scaleMeasurement(3));
         paint.setColor(Color.BLACK);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
-        canvas.drawText("4 X 4 - Even and Odd.", window.centerX() - 350, window.centerY() + -100,
+        canvas.drawText("4 X 4 - Even, Odd and Multiples.", this.scaleMeasurementW(1), this.scaleMeasurement(39),
                 paint);
-        canvas.drawText("5 X 5 - Even, Odd and Multiples. ", window.centerX() - 350, window.centerY() + -40,
+        canvas.drawText("5 X 5 - Even, Odd and Multiples. ", this.scaleMeasurementW(1), this.scaleMeasurement(43),
                 paint);
-        canvas.drawText("6 X 6 - Even, Odd, Multiples and Powers ", window.centerX() - 350, window.centerY() + 20,
+        canvas.drawText("6 X 6 - Even, Odd, Multiples and Powers.", this.scaleMeasurementW(1), this.scaleMeasurement(47),
                 paint);
-        canvas.drawText("7 X 7 - Even, Odd, Multiples ", window.centerX() - 350, window.centerY() + 80,
+        canvas.drawText("7 X 7 - Even, Odd, Multiples ", this.scaleMeasurementW(1), this.scaleMeasurement(51),
                 paint);
-        canvas.drawText("  Powers and Primes ", window.centerX() - 250, window.centerY() + 130,
-                paint);
-
-        paint.setTextSize(scaleMeasurement(7));
-        paint.setColor(Color.WHITE);
-        canvas.drawText("NOTE", window.centerX() - 350, window.centerY() + 210,
+        canvas.drawText("Powers and Primes.", this.scaleMeasurementW(1), this.scaleMeasurement(54),
                 paint);
 
         paint.setTextSize(scaleMeasurement(5));
+        paint.setColor(Color.WHITE);
+        canvas.drawText("NOTE", scaleMeasurementW(1), scaleMeasurement(62),
+                paint);
+
+        paint.setTextSize(scaleMeasurement(3));
         paint.setColor(Color.BLACK);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
-        canvas.drawText("*Each sequence must be >=4 numbers.", window.centerX() - 350, window.centerY() + 270,
+        canvas.drawText("*Each sequence must be >=4 numbers.", this.scaleMeasurementW(1), this.scaleMeasurement(67),
                 paint);
-        canvas.drawText("*Sequences having even, odd and multiples ", window.centerX() - 350, window.centerY() + 320,
+        canvas.drawText("*Sequences having even, odd and multiples ", this.scaleMeasurementW(1), this.scaleMeasurement(71),
                 paint);
-        canvas.drawText(" will get longer as the grid gets bigger! ", window.centerX() - 350, window.centerY() + 360,
+        canvas.drawText(" will get longer as the grid gets bigger! ", this.scaleMeasurementW(1), this.scaleMeasurement(74),
                 paint);
 
-        paint.setTextSize(scaleMeasurement(6));
+        paint.setTextSize(scaleMeasurement(4));
         paint.setColor(Color.WHITE);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
-        paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(scaleMeasurement(5));
-        canvas.drawText("Tap Anywhere to Return to The Main Screen", window.centerX(), window.centerY() + 420,
+        canvas.drawText("Tap Anywhere to Return ", scaleMeasurementW(1), scaleMeasurement(85),
+                paint);
+        canvas.drawText("to The Main Screen", scaleMeasurementW(2), scaleMeasurement(90),
                 paint);
     }
 
