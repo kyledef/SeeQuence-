@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_id">330185209744</string>
-    <string name="achievement_7x7">CgkIkO_JhM4JEAIQBA</string>
+    <string name="package_name">org.kyledef.seequence</string>
+    <string name="achievement_noob">CgkIkO_JhM4JEAIQAQ</string>
+    <string name="achievement_youre_getting_there">CgkIkO_JhM4JEAIQAg</string>
+    <string name="achievement_you_will_not_succeed.">CgkIkO_JhM4JEAIQBA</string>
+    <string name="achievement_you_are_actually_interested.">CgkIkO_JhM4JEAIQBQ</string>
+    <string name="achievement_you_really_like_this">CgkIkO_JhM4JEAIQBg</string>
 </resources>
