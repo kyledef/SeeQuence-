@@ -15,6 +15,8 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.util.HashMap;
 
 
@@ -29,6 +31,7 @@ public class ScreenManager extends SurfaceView implements
 	private Screen activeScreen = null;
 	private HashMap<String, Screen> screenMap;
 	private Activity activity;
+	public GoogleApiClient mGoogleApiClient;
 
 	public Activity getActivty() {
 		return activity;
@@ -38,17 +41,18 @@ public class ScreenManager extends SurfaceView implements
 		return screenMap;
 	}
 
-	public ScreenManager(Activity activity) {
+	public ScreenManager(Activity activity, GoogleApiClient apiClient) {
 		super(activity);
 		Log.i(TAG, "Constructor of Screen Manager called");
 		getHolder().addCallback(this);
 		screenMap = new HashMap<>();
 		this.activity = activity;
+		this.mGoogleApiClient=apiClient;
 	}
 
 	public static ScreenManager getInstance(Activity activity) {
 		if (phoneScreen == null)
-			phoneScreen = new ScreenManager(activity);
+			phoneScreen = new ScreenManager(activity,null);
 		return phoneScreen;
 	}
 
@@ -183,6 +187,7 @@ public class ScreenManager extends SurfaceView implements
 			this.addScreen(GameOverScreen.getInstance(this));
 			this.addScreen(InstructionsScreen.getInstance(this));
 			this.setActiveScreen("GAMESELECT");
+
 		}
 	}
 

@@ -1,14 +1,18 @@
 package org.kyledef.seequence;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.RectF;
 import android.graphics.Typeface;
-import android.hardware.SensorEvent;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.Toast;
+
+import com.google.android.gms.games.Games;
 
 public class GameSelectScreen extends Screen {
 	private static final String TAG = "GameSelectScreen" ;
@@ -56,26 +60,26 @@ public class GameSelectScreen extends Screen {
 		// window.right - (0.05f * manager.width), window.top + (0.75f *
 		// manager.height));
 
-		instructbtn = this.getRect(10, 20, 80, 10);
+		instructbtn = this.getRect(10, 20, 80, 7);
 
-		fourbtn = this.getRect(10, 35, 80, 10);
+		fourbtn = this.getRect(10, 32, 80, 7);
 
 		// = new RectF(window.left + 100, banner.bottom + 150,
 		// window.right - 100, banner.bottom + 300);
 
-		fivebtn = this.getRect(10, 50, 80, 10);
+		fivebtn = this.getRect(10, 44, 80, 7);
 		// = new RectF(window.left + 100, fourbtn.bottom + 50,
 		// window.right - 100, fourbtn.bottom + 200);
 
-		sixbtn = this.getRect(10, 65, 80, 10);
+		sixbtn = this.getRect(10, 56, 80, 7);
 		// new RectF(window.left + 100, fivebtn.bottom + 50,
 		// window.right - 100, fivebtn.bottom + 200);
 
-		sevenbtn = this.getRect(10, 80, 80, 10);
+		sevenbtn = this.getRect(10, 68, 80, 7);
 		// = new RectF(window.left + 100, sixbtn.bottom + 50,
 		// window.right - 100, sixbtn.bottom + 200);
 
-		eightbtn = this.getRect(10, 90, 80, 10);
+		eightbtn = this.getRect(10, 80, 80, 7);
 		// new RectF(window.left + 100, sevenbtn.bottom + 50,
 		// window.right - 100, sevenbtn.bottom + 200);
 
@@ -138,14 +142,14 @@ public class GameSelectScreen extends Screen {
 		canvas.drawText("7 x 7 Grid", sevenbtn.centerX(), sevenbtn.centerY(),
 				paint);
 
-		// paint.setColor(Color.BLACK);
-		// canvas.drawRoundRect(eightbtn, 50, 50, paint);
-		// paint.setColor(Color.WHITE);
-		// paint.setTextSize(50);
-		// paint.setTypeface(Typeface.DEFAULT_BOLD);
-		// paint.setTextAlign(Align.CENTER);
-		// canvas.drawText("8 x 8 Grid", eightbtn.centerX(), eightbtn.centerY(),
-		// paint);
+		 paint.setColor(Color.BLACK);
+		 canvas.drawRoundRect(eightbtn, 50, 50, paint);
+		 paint.setColor(Color.WHITE);
+		 paint.setTextSize(50);
+		 paint.setTypeface(Typeface.DEFAULT_BOLD);
+		 paint.setTextAlign(Align.CENTER);
+		 canvas.drawText("View Achievements", eightbtn.centerX(), eightbtn.centerY(),
+		 paint);
 	}
 
 	private boolean buttonPressed(RectF button, MotionEvent event) {
@@ -207,10 +211,20 @@ public class GameSelectScreen extends Screen {
 			GameScreen.getInstance(this.manager).addSequence(true);//prime
 			this.manager.setActiveScreen("GAMESCREEN");
 		}
-//		else if (buttonPressed(eightbtn, event)) {
-//			GameScreen.getInstance(this.manager).setAmount(8);
-//			this.manager.setActiveScreen("GAMESCREEN");
-//		}
+		else if (buttonPressed(eightbtn, event)) {
+			if(this.manager.mGoogleApiClient.isConnected()) {
+				this.manager.getActivty().startActivityForResult(Games.Achievements.getAchievementsIntent(this.manager.mGoogleApiClient),
+						100);
+			}
+
+			else{
+				Context context = this.manager.getActivty().getApplicationContext();
+				CharSequence text = "Not Connected to Play Services";
+				int duration = Toast.LENGTH_SHORT;
+				Toast toast = Toast.makeText(context, text, duration);
+				toast.show();
+			}
+		}
 		return false;
 	}
 

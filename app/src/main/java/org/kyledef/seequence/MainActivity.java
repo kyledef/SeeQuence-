@@ -21,7 +21,7 @@ public class MainActivity extends Activity implements
 
 	private static final String TAG = "MainActivity";
 	private ScreenManager phoneScreen = null;
-	public GoogleApiClient mGoogleApiClient;
+	private GoogleApiClient mGoogleApiClient;
 	private boolean mResolvingConnectionFailure = false;
 	private boolean mAutoStartSignInflow = true;
 	private boolean mSignInClicked = false;
@@ -39,7 +39,7 @@ public class MainActivity extends Activity implements
 				.build();
 
 		Log.i(TAG, "OnCreate of Main Activity called");
-		phoneScreen = new ScreenManager(this);
+		phoneScreen = new ScreenManager(this,mGoogleApiClient);
 		setContentView(phoneScreen);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		hideSystemUI();
@@ -64,11 +64,11 @@ public class MainActivity extends Activity implements
 		// player to proceed.
 		Log.i("CONNECTED", "CODE!");
 
-		//Code just to test that api works and achievements are being shown.
-		Games.Achievements.unlock(mGoogleApiClient, this.getString(string.achievement_noob));
-
-		startActivityForResult(Games.Achievements.getAchievementsIntent(mGoogleApiClient),
-				100);
+//		//Code just to test that api works and achievements are being shown.
+//		Games.Achievements.unlock(mGoogleApiClient, this.getString(string.achievement_noob));
+//
+//		startActivityForResult(Games.Achievements.getAchievementsIntent(mGoogleApiClient),
+//				100);
 	}
 
 	@Override
