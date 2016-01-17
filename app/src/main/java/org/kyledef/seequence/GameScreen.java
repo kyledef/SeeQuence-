@@ -24,7 +24,7 @@ public class GameScreen extends Screen {
 
 	private static final String TAG = "GameScreen";
 	private List<NumberElement> sequence = new ArrayList<>();
-	private int score = 0, sequencesSolved;
+	private int score = 0, sequencesSolved, maxTime;
 	private long timer;
 	private RectF border1, border2, button, scoreRect, timerRect, sequenceRect;
 	private int amount = 4;
@@ -56,6 +56,10 @@ public class GameScreen extends Screen {
 	public void setAmount(int amt) {
 		this.amount = amt;
 		this.sequencesSolved=0;
+	}
+
+	public void setMaxTime(int maxTime){
+		this.maxTime=maxTime;
 	}
 
 	@Override
@@ -170,7 +174,7 @@ public class GameScreen extends Screen {
 			e.printStackTrace();
 		}
 
-		new CountDownTimer(60000, 1000) {
+		new CountDownTimer(maxTime, 1000) {
 
 			public void onTick(long millisUntilFinished) {
 				timer = millisUntilFinished / 1000;

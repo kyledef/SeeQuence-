@@ -177,6 +177,7 @@ public class GameSelectScreen extends Screen {
 		if (buttonPressed(fourbtn, event)) {
 			GameScreen.getInstance(this.manager).resetGameScreenVariables();
 			GameScreen.getInstance(this.manager).setAmount(4);
+			GameScreen.getInstance(this.manager).setMaxTime(45000);
 			GameScreen.getInstance(this.manager).addSequence(true);//even
 			GameScreen.getInstance(this.manager).addSequence(true);//odd
 			GameScreen.getInstance(this.manager).addSequence(true);//multiple
@@ -184,12 +185,12 @@ public class GameSelectScreen extends Screen {
 			GameScreen.getInstance(this.manager).addSequence(false);//prime
 			this.manager.setActiveScreen("GAMESCREEN");
 			if(this.manager.mGoogleApiClient.isConnected()) {
-				Games.Achievements.unlock(this.manager.mGoogleApiClient, this.manager.getActivty().getString(R.string.achievement_noob));
 				Games.Achievements.increment(this.manager.mGoogleApiClient, this.manager.getActivty().getString(R.string.achievement_you_really_like_this),1);
 			}
 		} else if (buttonPressed(fivebtn, event)) {
 			GameScreen.getInstance(this.manager).resetGameScreenVariables();
 			GameScreen.getInstance(this.manager).setAmount(5);
+			GameScreen.getInstance(this.manager).setMaxTime(60000);
 			GameScreen.getInstance(this.manager).addSequence(true);//even
 			GameScreen.getInstance(this.manager).addSequence(true);//odd
 			GameScreen.getInstance(this.manager).addSequence(true);//multiple
@@ -202,6 +203,7 @@ public class GameSelectScreen extends Screen {
 		} else if (buttonPressed(sixbtn, event)) {
 			GameScreen.getInstance(this.manager).resetGameScreenVariables();
 			GameScreen.getInstance(this.manager).setAmount(6);
+			GameScreen.getInstance(this.manager).setMaxTime(70000);
 			GameScreen.getInstance(this.manager).addSequence(true);//even
 			GameScreen.getInstance(this.manager).addSequence(true);//odd
 			GameScreen.getInstance(this.manager).addSequence(true);//multiple
@@ -210,10 +212,12 @@ public class GameSelectScreen extends Screen {
 			this.manager.setActiveScreen("GAMESCREEN");
 			if(this.manager.mGoogleApiClient.isConnected()) {
 				Games.Achievements.increment(this.manager.mGoogleApiClient, this.manager.getActivty().getString(R.string.achievement_you_really_like_this),1);
+				Games.Achievements.unlock(this.manager.mGoogleApiClient, this.manager.getActivty().getString(R.string.achievement_you_are_actually_interested_));
 			}
 		} else if (buttonPressed(sevenbtn, event)) {
 			GameScreen.getInstance(this.manager).resetGameScreenVariables();
 			GameScreen.getInstance(this.manager).setAmount(7);
+			GameScreen.getInstance(this.manager).setMaxTime(80000);
 			GameScreen.getInstance(this.manager).addSequence(true);//even
 			GameScreen.getInstance(this.manager).addSequence(true);//odd
 			GameScreen.getInstance(this.manager).addSequence(true);//multiple
@@ -222,8 +226,6 @@ public class GameSelectScreen extends Screen {
 			this.manager.setActiveScreen("GAMESCREEN");
 			if(this.manager.mGoogleApiClient.isConnected()) {
 				Games.Achievements.unlock(this.manager.mGoogleApiClient, this.manager.getActivty().getString(R.string.achievement_you_will_not_succeed_));
-			}
-			if(this.manager.mGoogleApiClient.isConnected()) {
 				Games.Achievements.increment(this.manager.mGoogleApiClient, this.manager.getActivty().getString(R.string.achievement_you_really_like_this), 1);
 			}
 		}
