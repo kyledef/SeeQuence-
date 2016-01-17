@@ -1,12 +1,14 @@
 package org.kyledef.seequence;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -43,7 +45,6 @@ public class MainActivity extends Activity implements
 		setContentView(phoneScreen);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		hideSystemUI();
-
 		signInClicked();
 	}
 
@@ -63,12 +64,11 @@ public class MainActivity extends Activity implements
 		// The player is signed in. Hide the sign-in button and allow the
 		// player to proceed.
 		Log.i("CONNECTED", "CODE!");
-
-//		//Code just to test that api works and achievements are being shown.
-//		Games.Achievements.unlock(mGoogleApiClient, this.getString(string.achievement_noob));
-//
-//		startActivityForResult(Games.Achievements.getAchievementsIntent(mGoogleApiClient),
-//				100);
+		Context context = this.getApplicationContext();
+		CharSequence text = "Signed In Successfully";
+		int duration = Toast.LENGTH_LONG;
+		Toast toast = Toast.makeText(context, text, duration);
+		toast.show();
 	}
 
 	@Override

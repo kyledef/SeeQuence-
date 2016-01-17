@@ -183,6 +183,10 @@ public class GameSelectScreen extends Screen {
 			GameScreen.getInstance(this.manager).addSequence(false);//power
 			GameScreen.getInstance(this.manager).addSequence(false);//prime
 			this.manager.setActiveScreen("GAMESCREEN");
+			if(this.manager.mGoogleApiClient.isConnected()) {
+				Games.Achievements.unlock(this.manager.mGoogleApiClient, this.manager.getActivty().getString(R.string.achievement_noob));
+				Games.Achievements.increment(this.manager.mGoogleApiClient, this.manager.getActivty().getString(R.string.achievement_you_really_like_this),1);
+			}
 		} else if (buttonPressed(fivebtn, event)) {
 			GameScreen.getInstance(this.manager).resetGameScreenVariables();
 			GameScreen.getInstance(this.manager).setAmount(5);
@@ -192,6 +196,9 @@ public class GameSelectScreen extends Screen {
 			GameScreen.getInstance(this.manager).addSequence(false);//power
 			GameScreen.getInstance(this.manager).addSequence(false);//prime
 			this.manager.setActiveScreen("GAMESCREEN");
+			if(this.manager.mGoogleApiClient.isConnected()) {
+				Games.Achievements.increment(this.manager.mGoogleApiClient, this.manager.getActivty().getString(R.string.achievement_you_really_like_this),1);
+			}
 		} else if (buttonPressed(sixbtn, event)) {
 			GameScreen.getInstance(this.manager).resetGameScreenVariables();
 			GameScreen.getInstance(this.manager).setAmount(6);
@@ -201,6 +208,9 @@ public class GameSelectScreen extends Screen {
 			GameScreen.getInstance(this.manager).addSequence(true);//power
 			GameScreen.getInstance(this.manager).addSequence(false);//prime
 			this.manager.setActiveScreen("GAMESCREEN");
+			if(this.manager.mGoogleApiClient.isConnected()) {
+				Games.Achievements.increment(this.manager.mGoogleApiClient, this.manager.getActivty().getString(R.string.achievement_you_really_like_this),1);
+			}
 		} else if (buttonPressed(sevenbtn, event)) {
 			GameScreen.getInstance(this.manager).resetGameScreenVariables();
 			GameScreen.getInstance(this.manager).setAmount(7);
@@ -210,6 +220,12 @@ public class GameSelectScreen extends Screen {
 			GameScreen.getInstance(this.manager).addSequence(true);//power
 			GameScreen.getInstance(this.manager).addSequence(true);//prime
 			this.manager.setActiveScreen("GAMESCREEN");
+			if(this.manager.mGoogleApiClient.isConnected()) {
+				Games.Achievements.unlock(this.manager.mGoogleApiClient, this.manager.getActivty().getString(R.string.achievement_you_will_not_succeed_));
+			}
+			if(this.manager.mGoogleApiClient.isConnected()) {
+				Games.Achievements.increment(this.manager.mGoogleApiClient, this.manager.getActivty().getString(R.string.achievement_you_really_like_this), 1);
+			}
 		}
 		else if (buttonPressed(eightbtn, event)) {
 			if(this.manager.mGoogleApiClient.isConnected()) {
@@ -227,5 +243,4 @@ public class GameSelectScreen extends Screen {
 		}
 		return false;
 	}
-
 }
