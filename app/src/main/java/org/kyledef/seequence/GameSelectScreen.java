@@ -1,6 +1,5 @@
 package org.kyledef.seequence;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -35,7 +34,7 @@ public class GameSelectScreen extends Screen {
 
 	}
 
-	private RectF banner, fourbtn, fivebtn, sixbtn, sevenbtn, eightbtn, instructbtn;
+	private RectF banner, fourbtn, fivebtn, sixbtn, sevenbtn, achievementsBtn, leaderboardsBtn, instructbtn;
 
 	private RectF getRect(float x, float y, float width, float height) {
 		float left = manager.width * (x / 100);
@@ -79,9 +78,12 @@ public class GameSelectScreen extends Screen {
 		// = new RectF(window.left + 100, sixbtn.bottom + 50,
 		// window.right - 100, sixbtn.bottom + 200);
 
-		eightbtn = this.getRect(10, 80, 80, 7);
+		achievementsBtn = this.getRect(10, 80, 80, 7);
 		// new RectF(window.left + 100, sevenbtn.bottom + 50,
 		// window.right - 100, sevenbtn.bottom + 200);
+
+		leaderboardsBtn = this.getRect(10, 92, 80, 7);
+
 
 	}
 
@@ -98,7 +100,7 @@ public class GameSelectScreen extends Screen {
 		paint.setTypeface(Typeface.SERIF);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
 		paint.setTextAlign(Align.CENTER);
-		canvas.drawText("SeeQuence", banner.centerX(), banner.centerY()-50
+		canvas.drawText("SeeQuence", banner.centerX(), banner.centerY() - 50
 				+ (manager.height * 0.03f), paint);
 
 		paint.setColor(Color.GRAY);
@@ -127,14 +129,14 @@ public class GameSelectScreen extends Screen {
 		canvas.drawText("5 x 5 Grid", fivebtn.centerX(), fivebtn.centerY(),
 				paint);
 
-		paint.setColor(Color.rgb(255,128,0));
+		paint.setColor(Color.rgb(255, 128, 0));
 		canvas.drawRoundRect(sixbtn, this.scaleMeasurement(5), this.scaleMeasurement(5), paint);
 		paint.setColor(Color.WHITE);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
 		paint.setTextAlign(Align.CENTER);
 		canvas.drawText("6 x 6 Grid", sixbtn.centerX(), sixbtn.centerY(), paint);
 
-		paint.setColor(Color.rgb(255,51,51));
+		paint.setColor(Color.rgb(255, 51, 51));
 		canvas.drawRoundRect(sevenbtn, this.scaleMeasurement(5), this.scaleMeasurement(5), paint);
 		paint.setColor(Color.WHITE);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
@@ -143,13 +145,23 @@ public class GameSelectScreen extends Screen {
 				paint);
 
 		 paint.setColor(Color.BLACK);
-		 canvas.drawRoundRect(eightbtn, 50, 50, paint);
+		 canvas.drawRoundRect(achievementsBtn, 50, 50, paint);
 		 paint.setColor(Color.WHITE);
 		 paint.setTextSize(50);
 		 paint.setTypeface(Typeface.DEFAULT_BOLD);
 		 paint.setTextAlign(Align.CENTER);
-		 canvas.drawText("View Achievements", eightbtn.centerX(), eightbtn.centerY(),
-		 paint);
+		 canvas.drawText("View Achievements", achievementsBtn.centerX(), achievementsBtn.centerY(),
+				 paint);
+
+
+		paint.setColor(Color.BLACK);
+		canvas.drawRoundRect(leaderboardsBtn, 50, 50, paint);
+		paint.setColor(Color.WHITE);
+		paint.setTextSize(50);
+		paint.setTypeface(Typeface.DEFAULT_BOLD);
+		paint.setTextAlign(Align.CENTER);
+		canvas.drawText("View Leaderboards", leaderboardsBtn.centerX(), leaderboardsBtn.centerY(),
+				paint);
 	}
 
 	private boolean buttonPressed(RectF button, MotionEvent event) {
@@ -229,12 +241,24 @@ public class GameSelectScreen extends Screen {
 				Games.Achievements.increment(this.manager.mGoogleApiClient, this.manager.getActivty().getString(R.string.achievement_you_really_like_this), 1);
 			}
 		}
-		else if (buttonPressed(eightbtn, event)) {
+		else if (buttonPressed(achievementsBtn, event)) {
 			if(this.manager.mGoogleApiClient.isConnected()) {
 				this.manager.getActivty().startActivityForResult(Games.Achievements.getAchievementsIntent(this.manager.mGoogleApiClient),
 						100);
 			}
 
+			else{
+				Context context = this.manager.getActivty().getApplicationContext();
+				CharSequence text = "Not Connected to Play Services";
+				int duration = Toast.LENGTH_SHORT;
+				Toast toast = Toast.makeText(context, text, duration);
+				toast.show();
+			}
+		}
+		else if (buttonPressed(leaderboardsBtn,event)){
+			if(this.manager.mGoogleApiClient.isConnected()){
+				this.manager.getActivty().startActivityForResult(Games.Leaderboards.getLeaderboardIntent(this.manager.mGoogleApiClient,this.manager.getActivty().getString(R.string.leaderboard_top_scores)),100);
+			}
 			else{
 				Context context = this.manager.getActivty().getApplicationContext();
 				CharSequence text = "Not Connected to Play Services";

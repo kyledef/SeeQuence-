@@ -33,18 +33,20 @@ public class NumberElement extends Sprite {
 		return rand.nextInt((max - min) + 1) + min;
 	}
 
-	@Override
 	public void draw(Canvas canvas) {
 		canvas.drawBitmap(image, src, this.getDst(), null);
 		Paint paint = new Paint();
 		paint.setColor(Color.BLACK);
-		paint.setTextSize(scaleMeasurement(5));
-		paint.setTypeface(Typeface.DEFAULT_BOLD);
+		if(this.value<100)
+			paint.setTextSize(scaleMeasurement(5));
+		else if(this.value>=100 && this.value<1000)
+			paint.setTextSize(scaleMeasurement(4));
+		else
+			paint.setTextSize(scaleMeasurement(3));
+		paint.setTypeface(Typeface.DEFAULT);
 		paint.setTextAlign(Align.CENTER);
 		canvas.drawText("" + this.value, this.getDst().centerX(), this.getDst()
 				.centerY() + this.scaleMeasurement(1), paint);
-		
-		
 		//canvas.drawRect(getDst(), paint);
 	}
 

@@ -153,10 +153,10 @@ public class GameScreen extends Screen {
 						pos++;
 					}
 					else {
-						//Generate Random Number Here
+						//Generate Random Number Here and avoid duplication of numbers
 
 						numToInsert=generateNumber(1,100);
-						while(sequenceListToInsert.contains(new Integer(numToInsert))){
+						while(sequenceListToInsert.contains(numToInsert)){
 							numToInsert=generateNumber(1,100);
 						}
 					}
@@ -183,6 +183,7 @@ public class GameScreen extends Screen {
 			public void onFinish() {
 				timer = 0;
 				GameOverScreen.getInstance(manager).setScore(score);
+				GameOverScreen.getInstance(manager).submitScoreToLeaderboard();
 				manager.setActiveScreen("GAMEOVER");
 			}
 		}.start();
@@ -240,6 +241,7 @@ public class GameScreen extends Screen {
 
 		for (NumberElement e : elementList) {
 			e.draw(canvas);
+
 		}
 
 	}
@@ -247,7 +249,7 @@ public class GameScreen extends Screen {
 	private boolean checkSequence() {
 		if(sequence.size()>=4) {
 			if (sequenceSelection.get(0)) {
-//				Log.i("EVEN","EVEN");
+				Log.i("EVEN","EVEN");
 				if (checkEvenSolution()) {
 					sequenceSelection.set(0, false);
 					score += 5;
@@ -257,6 +259,7 @@ public class GameScreen extends Screen {
 					return true;
 				}
 			}
+
 			if (sequenceSelection.get(1)) {
 //				Log.i("ODDD","ODDD");
 				if (checkOddSolution()) {
@@ -268,6 +271,7 @@ public class GameScreen extends Screen {
 					return true;
 				}
 			}
+
 			if (sequenceSelection.get(2)) {
 //				Log.i("MULTIPLE","MULTIPLE");
 				if (checkMultipleSolution()) {
@@ -279,6 +283,7 @@ public class GameScreen extends Screen {
 					return true;
 				}
 			}
+
 			if (sequenceSelection.get(3)) {
 //				Log.i("POWER CHECK","POWER");
 				if (checkPowerSolution()) {
@@ -288,12 +293,13 @@ public class GameScreen extends Screen {
 				}
 				else{
 					if(checkPowerSolutionReverse()){
-						sequenceSelection.set(2,false);
+						sequenceSelection.set(3,false);
 						score+=10;
 						return true;
 					}
 				}
 			}
+
 			if (sequenceSelection.get(4)) {
 				if (checkPrimeSolution()) {
 					sequenceSelection.set(4,false);
@@ -595,6 +601,11 @@ public class GameScreen extends Screen {
 	public void resetGameScreenVariables(){
 		this.elementList.clear();
 		this.sequenceListToInsert.clear();
+		this.sequence.clear();
+		this.sequencesSolved=0;
+		this.score=0;
+		this.notify="";
+		this.sequenceString="";
 	}
 
 }

@@ -1,5 +1,6 @@
 package org.kyledef.seequence;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,6 +9,9 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.hardware.SensorEvent;
 import android.view.MotionEvent;
+import android.widget.Toast;
+
+import com.google.android.gms.games.Games;
 
 
 public class GameOverScreen extends Screen{
@@ -80,6 +84,19 @@ public class GameOverScreen extends Screen{
 	public boolean processTouchInput(MotionEvent event) {
 		this.manager.setActiveScreen("GAMESELECT");
 		return false;
+	}
+
+	public void submitScoreToLeaderboard(){
+		if(this.manager.mGoogleApiClient.isConnected()) {
+			Games.Leaderboards.submitScore(this.manager.mGoogleApiClient, this.manager.getActivty().getString(R.string.leaderboard_top_scores), this.score);
+		}
+		else{
+			Context context = this.manager.getActivty().getApplicationContext();
+			CharSequence text = "Cannot Upload Score, Not Connected to Play Services";
+			int duration = Toast.LENGTH_SHORT;
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+		}
 	}
 
 }
