@@ -82,7 +82,7 @@ public class GameSelectScreen extends Screen {
 		// new RectF(window.left + 100, sevenbtn.bottom + 50,
 		// window.right - 100, sevenbtn.bottom + 200);
 
-		leaderboardsBtn = this.getRect(10, 92, 80, 7);
+		leaderboardsBtn = this.getRect(10, 88, 80, 7);
 
 
 	}
@@ -109,7 +109,7 @@ public class GameSelectScreen extends Screen {
 		paint.setTextSize(this.scaleMeasurement(4));
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
 		paint.setTextAlign(Align.CENTER);
-		canvas.drawText("Instructions", instructbtn.centerX(), instructbtn.centerY(),
+		canvas.drawText("Instructions", instructbtn.centerX(), instructbtn.centerY()+10,
 				paint);
 
 		paint.setColor(Color.rgb(51,153,255));
@@ -118,7 +118,7 @@ public class GameSelectScreen extends Screen {
 		paint.setTextSize(this.scaleMeasurement(4));
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
 		paint.setTextAlign(Align.CENTER);
-		canvas.drawText("4 x 4 Grid", fourbtn.centerX(), fourbtn.centerY(),
+		canvas.drawText("4 x 4 Grid", fourbtn.centerX(), fourbtn.centerY()+10,
 				paint);
 
 		paint.setColor(Color.rgb(0,153,0));
@@ -126,7 +126,7 @@ public class GameSelectScreen extends Screen {
 		paint.setColor(Color.WHITE);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
 		paint.setTextAlign(Align.CENTER);
-		canvas.drawText("5 x 5 Grid", fivebtn.centerX(), fivebtn.centerY(),
+		canvas.drawText("5 x 5 Grid", fivebtn.centerX(), fivebtn.centerY()+10,
 				paint);
 
 		paint.setColor(Color.rgb(255, 128, 0));
@@ -141,26 +141,26 @@ public class GameSelectScreen extends Screen {
 		paint.setColor(Color.WHITE);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
 		paint.setTextAlign(Align.CENTER);
-		canvas.drawText("7 x 7 Grid", sevenbtn.centerX(), sevenbtn.centerY(),
+		canvas.drawText("7 x 7 Grid", sevenbtn.centerX(), sevenbtn.centerY()+10,
 				paint);
 
-		 paint.setColor(Color.BLACK);
+		 paint.setColor(Color.rgb(205,16,118));
 		 canvas.drawRoundRect(achievementsBtn, 50, 50, paint);
 		 paint.setColor(Color.WHITE);
-		 paint.setTextSize(50);
+		 paint.setTextSize(40);
 		 paint.setTypeface(Typeface.DEFAULT_BOLD);
 		 paint.setTextAlign(Align.CENTER);
-		 canvas.drawText("View Achievements", achievementsBtn.centerX(), achievementsBtn.centerY(),
+		 canvas.drawText("Achievements", achievementsBtn.centerX(), achievementsBtn.centerY()+10,
 				 paint);
 
 
-		paint.setColor(Color.BLACK);
+		paint.setColor(Color.rgb(205,16,118));
 		canvas.drawRoundRect(leaderboardsBtn, 50, 50, paint);
 		paint.setColor(Color.WHITE);
-		paint.setTextSize(50);
+		paint.setTextSize(40);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
 		paint.setTextAlign(Align.CENTER);
-		canvas.drawText("View Leaderboards", leaderboardsBtn.centerX(), leaderboardsBtn.centerY(),
+		canvas.drawText("Leaderboards", leaderboardsBtn.centerX(), leaderboardsBtn.centerY()+10,
 				paint);
 	}
 
