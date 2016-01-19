@@ -154,7 +154,6 @@ public class GameScreen extends Screen {
 					}
 					else {
 						//Generate Random Number Here and avoid duplication of numbers
-
 						numToInsert=generateNumber(1,100);
 						while(sequenceListToInsert.contains(numToInsert)){
 							numToInsert=generateNumber(1,100);
@@ -249,69 +248,66 @@ public class GameScreen extends Screen {
 	private boolean checkSequence() {
 		if(sequence.size()>=4) {
 			if (sequenceSelection.get(0)) {
-				Log.i("EVEN","EVEN");
 				if (checkEvenSolution()) {
+					Log.i("EVEN", "EVEN");
 					sequenceSelection.set(0, false);
 					score += 5;
-					if(sequence.size()>=5){
-						score+=(sequence.size()-4)*2;
+					if (sequence.size() >= 5) {
+						score += (sequence.size() - 4) * 2;
 					}
 					return true;
 				}
 			}
 
 			if (sequenceSelection.get(1)) {
-//				Log.i("ODDD","ODDD");
 				if (checkOddSolution()) {
-					sequenceSelection.set(1,false);
-					score+=5;
-					if(sequence.size()>=5){
-						score+=(sequence.size()-4)*2;
+					Log.i("ODDD","ODDD");
+					sequenceSelection.set(1, false);
+					score += 5;
+					if (sequence.size() >= 5) {
+						score += (sequence.size() - 4) * 2;
 					}
 					return true;
 				}
 			}
 
 			if (sequenceSelection.get(2)) {
-//				Log.i("MULTIPLE","MULTIPLE");
 				if (checkMultipleSolution()) {
-					sequenceSelection.set(2,false);
-					score+=10;
-					if(sequence.size()>=5){
-						score+=(sequence.size()-4)*3;
+					Log.i("MULTIPLE","MULTIPLE");
+					sequenceSelection.set(2, false);
+					score += 10;
+					if (sequence.size() >= 5) {
+						score += (sequence.size() - 4) * 3;
 					}
 					return true;
 				}
 			}
 
 			if (sequenceSelection.get(3)) {
-//				Log.i("POWER CHECK","POWER");
 				if (checkPowerSolution()) {
-					sequenceSelection.set(3,false);
-					score+=10;
+					Log.i("POWER CHECK","POWER");
+					sequenceSelection.set(3, false);
+					score += 10;
 					return true;
-				}
-				else{
-					if(checkPowerSolutionReverse()){
-						sequenceSelection.set(3,false);
-						score+=10;
-						return true;
-					}
+				} else if (checkPowerSolutionReverse()) {
+					Log.i("POWER CHECK","POWER");
+					sequenceSelection.set(3, false);
+					score += 10;
+					return true;
 				}
 			}
 
 			if (sequenceSelection.get(4)) {
 				if (checkPrimeSolution()) {
-					sequenceSelection.set(4,false);
-					score+=15;
+					Log.i("PRIME","PRIME");
+					sequenceSelection.set(4, false);
+					score += 15;
 					return true;
-				}
-				else{
-					if(checkPrimeSolutionReverse()){
-						sequenceSelection.set(4,false);
-						score+=15;
-						return true;
-					}
+				} else if (checkPrimeSolutionReverse()) {
+					Log.i("PRIME","PRIME");
+					sequenceSelection.set(4, false);
+					score += 15;
+					return true;
 				}
 			}
 		}
@@ -521,7 +517,7 @@ public class GameScreen extends Screen {
 	}
 
 	private void generateMultiple(){
-		int i = generateNumber(1,10);
+		int i = generateNumber(3,10);
 		int count=1;
 		while(count<=amount){
 //			Log.i("Adding Multiple", "" + i * count);
@@ -532,8 +528,9 @@ public class GameScreen extends Screen {
 	}
 
 	private boolean checkMultipleSolution(){
-		int multiple = Math.abs(sequence.get(1).getValue() - sequence.get(0).getValue());
-		int i, newMultiple;
+		int i, newMultiple ,multiple = Math.abs(sequence.get(1).getValue() - sequence.get(0).getValue());
+		if(multiple<=2)
+			return false;
 		for(i=1;i<sequence.size()-1;i++){
 			newMultiple = Math.abs(sequence.get(i+1).getValue()-sequence.get(i).getValue());
 			if(newMultiple!=multiple){
@@ -602,6 +599,7 @@ public class GameScreen extends Screen {
 		this.elementList.clear();
 		this.sequenceListToInsert.clear();
 		this.sequence.clear();
+		this.sequenceSelection.clear();
 		this.sequencesSolved=0;
 		this.score=0;
 		this.notify="";
