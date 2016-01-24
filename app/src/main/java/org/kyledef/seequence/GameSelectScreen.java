@@ -1,6 +1,9 @@
 package org.kyledef.seequence;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -90,8 +93,13 @@ public class GameSelectScreen extends Screen {
 	@Override
 	public void draw(Canvas canvas) {
 		Paint paint = new Paint();
-		paint.setARGB(255, 242, 158, 102);
+//		paint.setARGB(255, 242, 158, 102);
+
 		canvas.drawRect(this.manager.getWindow(), paint);
+
+		Resources res = this.manager.getActivty().getResources();
+		Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.background);
+		canvas.drawBitmap(bitmap, 0, 0, null);
 
 		paint.setColor(Color.DKGRAY);
 		// canvas.drawRect(banner, paint);

@@ -136,7 +136,7 @@ public class GameScreen extends Screen {
 
 		try {
 			Bitmap img = BitmapFactory.decodeResource(context.getResources(),
-					R.drawable.unselected);
+					R.drawable.unselected_2);
 
 			float width = border2.width() / amount;
 			float height = border2.height() / amount;

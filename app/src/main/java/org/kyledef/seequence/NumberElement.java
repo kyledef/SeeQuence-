@@ -59,7 +59,7 @@ public class NumberElement extends Sprite {
 		if (this.getDst().contains(event.getX(), event.getY())) {
 //			System.out.println("Did u click?"  + event.getX() + " | " + event.getY());
 			this.image = BitmapFactory.decodeResource(this.p.getContext()
-					.getResources(), R.drawable.selected);
+					.getResources(), R.drawable.selected_2);
 			return true;
 		}
 		return false;
